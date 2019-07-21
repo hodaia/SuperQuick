@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dialogs.ProductDialogFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ExpandableListView
+        android:id="@+id/categoriesProductsExpandableListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></ExpandableListView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+    <Button
+        android:id="@+id/closeAndSaveDialogBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_alignParentBottom="true"/>
+    <Button
+        android:id="@+id/closeDialogBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_alignLeft="@+id/closeAndSaveDialogBtn"
+        android:layout_alignParentBottom="true"/>
+    </LinearLayout>
+</RelativeLayout>

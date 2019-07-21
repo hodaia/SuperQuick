@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="goToShoppingListMenu">רשימת קניות</string>
+    <string name="goToMapsList">מפות</string>
+    <string name="editList">ערוך רשימה</string>
+    <string name="goToShoppingCart">עגלת קניות</string>
+    <string name="save">שמור</string>
+    <string name="cancel">חזור</string>
+    <string name="goToMaps">המשך למפות</string>
+    <string name="goToSupersList">המשך לבחירת חנות</string>
+    <string name="enter">הכנס</string>
+    <string name="settings">הגדרות</string>
+</resources>

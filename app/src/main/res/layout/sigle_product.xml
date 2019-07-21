@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/singleProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:text="product"
+        />
+    <!--<NumberPicker
+        android:id="@+id/productAmountNumberPicker"
+        android:layout_below="@+id/singleProduct"
+        android:layout_width="wrap_content"
+
+        android:layout_height="100dp"></NumberPicker>-->
+
+    <EditText
+        android:id="@+id/productAmountEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/singleProduct"
+        android:layout_alignRight="@+id/singleProduct"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:inputType="number"
+        android:text="0"
+        >
+
+    </EditText>
+</RelativeLayout>
