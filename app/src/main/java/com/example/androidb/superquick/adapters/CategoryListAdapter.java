@@ -65,14 +65,14 @@ public class CategoryListAdapter extends BaseAdapter {
         convertView = layoutInflater.inflate(R.layout.single_category, null);
 
         TextView singleCategory = (TextView) convertView.findViewById(R.id.singleCategory);
-        singleCategory.setText(categories.get(position).getString("categoryName"));
+        singleCategory.setText(categories.get(position).getCategoryName());
 
 
         singleCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                categoryId=categories.get(position).getInt("categoryId");
+                categoryId=categories.get(position).getCategoryId();
 
                 FragmentManager ft = ((AppCompatActivity) context).getSupportFragmentManager();
                 ProductDialogFragment productDialogFragment = new ProductDialogFragment(categoryId);

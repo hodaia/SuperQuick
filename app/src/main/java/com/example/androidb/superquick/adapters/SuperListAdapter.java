@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
 import com.example.androidb.superquick.activities.ShoppingListContentActivity;
 import com.example.androidb.superquick.entities.Super;
@@ -42,18 +43,16 @@ public class SuperListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater=LayoutInflater.from(context);
         convertView=layoutInflater.inflate(R.layout.single_super,null);
         TextView singleSuper=(TextView)convertView.findViewById(R.id.singleSuper);
-        singleSuper.setText(supers.get(position).getString("superName"));
+        singleSuper.setText(supers.get(position).getSuperName());
 
         singleSuper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(context, ShoppingListContentActivity.class);
-                context.startActivity(intent);
+                UserSessionData.ChosenSuper(supers.get(position).getSuperId());
             }
         });
         return convertView;

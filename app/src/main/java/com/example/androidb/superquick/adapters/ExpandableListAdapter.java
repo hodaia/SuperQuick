@@ -26,6 +26,7 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -33,19 +34,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;
     private List<SubCategory> parentList;
-    private List<Product> expandableList;
+    private HashMap<SubCategory,List<Product>> expandableList;
     int size;
     Object obj;
     int childPosition;
 
-    public ExpandableListAdapter(Context context, List<SubCategory> parentList, List<Product> expandableList) {
+    public ExpandableListAdapter(Context context, List<SubCategory> parentList, HashMap<SubCategory,List<Product>> expandableList) {
         this.context = context;
         this.parentList = parentList;
         this.expandableList = expandableList;
 
     }
-
-    ;
 
     @Override
     public int getGroupCount() {
@@ -56,7 +55,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(final int groupPosition) {
 
-        return expandableList.size();
+         return this.expandableList.get(parentList.get(groupPosition))
+                .size();
     }
 
     @Override
@@ -68,7 +68,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return expandableList.get(childPosition);
+        return this.expandableList.get(parentList.get(groupPosition)).get(childPosition);
+
     }
 
     @Override
@@ -95,7 +96,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.expandableParent);
-        listTitleTextView.setText(parentList.get(groupPosition).getString("subCategoryName"));
+        listTitleTextView.setText(parentList.get(groupPosition).getSubCategoryName());
         return convertView;
 
     }
@@ -105,7 +106,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     int afterProductAmount;
 
     @Override
-    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -132,17 +133,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
                 if (prevProductAmount == 0)
                     //create a new ProductInShoppingList
-                    UserSessionData.getInstance().userShoppingListContent.add(new ProductInShoppingList(UserSessionData.getInstance().userShoppingList.getShoppingListId(), expandableList.get(childPosition).getProductId(),Integer.parseInt(productAmountEditText.getText().toString()) ));
+                    UserSessionData.getInstance().userShoppingListContent.add(new ProductInShoppingList(UserSessionData.getInstance().userShoppingList.getShoppingListId(), expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductId(),Integer.parseInt(productAmountEditText.getText().toString()) ));
                 else {
                     for(ProductInShoppingList p:UserSessionData.getInstance().userShoppingListContent){
-                       if(p.productInShoppingList_productId == expandableList.get(childPosition).getProductId())
+                       if(p.productInShoppingList_productId == expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductId())
                            p.setProductInShoppingListAmount(Integer.parseInt(productAmountEditText.getText().toString()));
                     };
                 }
             }
         });
 
-        expandedListTextView.setText(expandableList.get(childPosition).getProductDescription());
+        expandedListTextView.setText(expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductDescription());
         return convertView;
     }
 

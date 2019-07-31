@@ -1,5 +1,6 @@
 package com.example.androidb.superquick.entities;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class SubCategory extends ParseObject   implements Comparable<SubCategory
     //SubCategory Queries
 
     public  static List<SubCategory> getSubCategory(int categoryId){
-        List<SubCategory> ParsedSubCategories=null;
+        List<SubCategory> ParsedSubCategories=new ArrayList<>();
 
         ParseQuery<SubCategory> querySubCategories = ParseQuery.getQuery("SubCategory");
         ParseQuery<Category> queryCurrentCategory = ParseQuery.getQuery("Category");

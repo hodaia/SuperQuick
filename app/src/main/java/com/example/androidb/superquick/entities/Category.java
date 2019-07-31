@@ -46,7 +46,7 @@ public class Category extends ParseObject {
 
     //Category Queries
     public static List<Category> getCategories() {
-        List<Category> ParsedCategories=null;
+        List<Category> ParsedCategories=new ArrayList<>();
         ParseQuery<Category> queryCategory = ParseQuery.getQuery("Category");
 
         try {

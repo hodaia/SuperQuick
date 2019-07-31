@@ -34,6 +34,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -87,7 +88,7 @@ public class ProductDialogFragment extends DialogFragment {
     ExpandableListView categoriesProductsView;
     ShoppingListContentAdapter shoppingListContentAdapter;
     List<SubCategory> ParsedSubCategories;
-    List<Product> ParsedProducts;
+    HashMap<SubCategory,List<Product>> ParsedProducts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

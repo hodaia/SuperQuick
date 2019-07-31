@@ -9,7 +9,7 @@ import com.parse.ParseQuery;
 public class Users extends ParseObject {
 
     private int userId;
-    private String userEmail;
+    public String userEmail;
     private String userPassword;
     private String userName;
 

@@ -2,6 +2,7 @@ package com.example.androidb.superquick.entities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.androidb.superquick.General.UserSessionData;
@@ -65,7 +66,7 @@ public class Product extends ParseObject {
 
 
    //Product Queries
-    public static List<Product> getProductsBySubCategory(List<SubCategory> parsedSubCategories) {
+    public static HashMap<SubCategory,List<Product>> getProductsBySubCategory(List<SubCategory> parsedSubCategories) {
         List<Product> ParsedProducts = null;
 
         ParseQuery<Product> queryProducts = ParseQuery.getQuery("Product");
@@ -73,7 +74,7 @@ public class Product extends ParseObject {
 
         //if the previous activity was shoppingListContent
         //which means there is a need to load a dinamic ShoppingListProcessActivity
-        if (UserSessionData.getInstance().userShoppingList != null) {
+        if (UserSessionData.getInstance().userShoppingList == null) {
             ParseQuery<ProductInShoppingList> queryProductInShoppingList = ParseQuery.getQuery("ProductInShoppingList");
             queryProductInShoppingList.whereEqualTo("productInShoppingList_shoppingListId", UserSessionData.getInstance().userCurrentShoppingListId);
             queryProducts.whereMatchesKeyInQuery("productId","productInShoppingList_shoppingListId", queryProductInShoppingList);
@@ -86,11 +87,23 @@ public class Product extends ParseObject {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return  ParsedProducts;
+        HashMap<SubCategory,List<Product>> integerListHashMap= new HashMap<>();
+        List<Product>products=new ArrayList<>();
+        for (SubCategory s:parsedSubCategories)
+              {
+                  for(Product p:ParsedProducts) {
+                      if(p.getProduct_subCategoryCode().getSubCategoryId()==s.getSubCategoryId())
+                          products.add(p);
+                  }
+                  integerListHashMap.put(s,products );
+                  products.removeAll(products);
+        }
+
+        return  integerListHashMap;
     }
 
     public static List<Product> getCurrentCartList() {
-        List<Product> ParsedProducts = null;
+        List<Product> ParsedProducts = new ArrayList<>();
 
         ParseQuery<ProductInShoppingList> queryCurrentShoppingList=ParseQuery.getQuery("ProductInShoppingList");
         queryCurrentShoppingList.whereEqualTo("productInShoppingList_shoppingListId", UserSessionData.getInstance().userShoppingList.getShoppingListId());

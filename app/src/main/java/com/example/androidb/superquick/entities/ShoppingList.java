@@ -65,7 +65,7 @@ public class ShoppingList extends ParseObject {
 
     //shoppingList Queries
     public static List<ShoppingList> getShoppingListByUserId() {
-        List<ShoppingList> parsedShoppingList = null;
+        List<ShoppingList> parsedShoppingList = new ArrayList<>();
         ParseQuery<ShoppingList> queryShoppingLists = ParseQuery.getQuery("ShoppingList");
         queryShoppingLists.whereEqualTo("shoppingList_UserId", UserSessionData.getInstance().user.getUserId());
         try {

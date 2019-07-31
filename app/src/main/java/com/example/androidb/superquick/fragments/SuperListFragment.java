@@ -90,6 +90,14 @@ public class SuperListFragment extends Fragment {
                 ((ShoppingListProcessActivity)getActivity()).replaceFragment(shoppingCartFragment);
             }
         });*/
+          Button goToMapsBtn = (Button)fragmentView.findViewById(R.id.goToMapsBtn);
+          goToMapsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SuperMapFragment SuperMapFragment=new SuperMapFragment();
+                ((ShoppingListProcessActivity)getActivity()).replaceFragment(SuperMapFragment);
+            }
+        });
 
         //call the function
         parsedSupers=Super.getSupers();

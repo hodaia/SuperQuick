@@ -3,6 +3,7 @@ package com.example.androidb.superquick.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.androidb.superquick.General.UserSessionData;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
@@ -42,7 +43,7 @@ public class Super extends ParseObject {
 
     //Super Queries
     public static List<Super> getSupers() {
-        List<Super> parsedSupers=null;
+        List<Super> parsedSupers=new ArrayList<>();
         ParseQuery<Super> querySupers = ParseQuery.getQuery("Super");
         try {
             parsedSupers = querySupers.find();
@@ -51,5 +52,22 @@ public class Super extends ParseObject {
             e.printStackTrace();
         }
         return parsedSupers;
+    }
+
+
+    public static List<Column> getSuperColumns(){
+
+        List<Column> parsedColumns=new ArrayList<>();
+        ParseQuery<Column> queryColumns = ParseQuery.getQuery("Column");
+        queryColumns.whereEqualTo("column_superId", UserSessionData.getInstance().chosenSuperId);
+        try {
+            parsedColumns = queryColumns.find();
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        return parsedColumns;
+
+
     }
 }

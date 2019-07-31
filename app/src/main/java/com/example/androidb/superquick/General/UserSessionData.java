@@ -19,6 +19,7 @@ public class UserSessionData {
     public List<ProductInShoppingList> userShoppingListContent;
     public ShoppingList userShoppingList;
     public int userCurrentShoppingListId;
+    public int chosenSuperId;
     public static UserSessionData getInstance() {
         if (userSessionData == null) {
             userSessionData = new UserSessionData();
@@ -53,4 +54,8 @@ public class UserSessionData {
     }
 
 
+    public static void ChosenSuper(int superId) {
+        userSessionData.chosenSuperId=superId;
+
+    }
 }

@@ -8,16 +8,16 @@ import com.parse.ParseObject;
 public class Row extends ParseObject {
     private int rowId;
     private int row_columnId;
-    private EnumsUtils.StatusRow rowStatus;
+    private int rowStatus;
     private boolean rowShow;
 
     public Row() {
     }
 
-    public Row(int rowId, int row_columnId, EnumsUtils.StatusRow rowStatus, boolean rowShow) {
+    public Row(int rowId, int row_columnId, int rowStatus, boolean rowShow) {
         setRowId(rowId);
         setRow_columnId(row_columnId);
-        this.rowStatus = rowStatus;
+        setRowStatus(rowStatus);
         setRowShow(rowShow);
     }
 
@@ -37,12 +37,12 @@ public class Row extends ParseObject {
         put("row_columnId ", row_columnId);
     }
 
-    public EnumsUtils.StatusRow getRowStatus() {
-        return rowStatus;
+    public int getRowStatus() {
+        return getInt("rowStatus") ;
     }
 
-    public void setRowStatus(EnumsUtils.StatusRow rowStatus) {
-        this.rowStatus = rowStatus;
+    public void setRowStatus(int rowStatus) {
+        put("rowStatus",rowStatus);
     }
 
     public boolean isRowShow() {
