@@ -20,6 +20,7 @@ public class UserSessionData {
     public ShoppingList userShoppingList;
     public int userCurrentShoppingListId;
     public int chosenSuperId;
+
     public static UserSessionData getInstance() {
         if (userSessionData == null) {
             userSessionData = new UserSessionData();

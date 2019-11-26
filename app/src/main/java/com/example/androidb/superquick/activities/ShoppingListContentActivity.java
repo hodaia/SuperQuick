@@ -39,7 +39,7 @@ public class ShoppingListContentActivity extends AppCompatActivity {
         final int shoppingListId = getIntent().getExtras().getInt("shoppingListId");
         //call the function
         parsedShoppingListContent=ProductInShoppingList.getProductsOfShoppingList(shoppingListId);
-        productsAmount=ProductInShoppingList.getProductsAmount(shoppingListId);
+        productsAmount=ProductInShoppingList.getProductsInShoppingList(shoppingListId);
         //call the adapter for the shoppingList
         shoppingListContentView = findViewById(R.id.shoppingListContentView);
         shoppingListContentAdapter = new ShoppingListContentAdapter(parsedShoppingListContent,productsAmount,this);

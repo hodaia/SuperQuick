@@ -12,21 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></ExpandableListView>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
     <Button
-        android:id="@+id/closeAndSaveDialogBtn"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:layout_alignParentBottom="true"/>
-    <Button
         android:id="@+id/closeDialogBtn"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
-        android:layout_alignLeft="@+id/closeAndSaveDialogBtn"
         android:layout_alignParentBottom="true"/>
+
     </LinearLayout>
 </RelativeLayout>

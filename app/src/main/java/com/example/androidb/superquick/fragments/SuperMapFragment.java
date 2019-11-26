@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
@@ -16,6 +17,7 @@ import com.example.androidb.superquick.entities.Column;
 import com.example.androidb.superquick.entities.Row;
 import com.example.androidb.superquick.entities.Super;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,10 +32,13 @@ public class SuperMapFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int STATUS_HEIGHT = 1;
+    private static final int STATUS_WIDTH = 2;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LinearLayout storeLinearLayout;
 
     public SuperMapFragment() {
         // Required empty public constructor
@@ -71,34 +76,81 @@ public class SuperMapFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_super_map, container, false);
+       storeLinearLayout = fragmentView.findViewById(R.id.store);
         buildSuperMap();
         return fragmentView;
     }
 
 
     public void buildSuperMap() {
-        int rowSize;
         int columnSize;
         List<Column> columnList = Super.getSuperColumns();
-        columnSize=columnList.size();
+        columnSize = columnList.size();
+        buildAllColumn(columnSize);
         for (Column c : columnList) {
-            List<Row> rowList = Column.getColumnRows(c.getColumnId());
-            rowSize=rowList.size();
+            buildColumn(c);
 
-            for (Row r : rowList) {
-                switch (r.getRowStatus()) {
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        break;
-                }
+        }
+    }
+
+    private void buildColumn(Column column) {
+        List<Row> rowList = Column.getColumnRows(column.getColumnId());
+        int rowSize = rowList.size();
+        LinearLayout columnViewLL = buildColumnView(rowSize);
+
+        for (Row row : rowList) {
+            switch (row.getRowStatus()) {
+                case STATUS_HEIGHT:
+                    buildRowHeightView(columnViewLL, row);
+                    break;
+                case STATUS_WIDTH:
+                    buildRowWidthView(columnViewLL, row);
+                    break;
             }
         }
+    }
+
+    private void buildRowWidthView(LinearLayout columnViewLL, Row row) {
+        View rowView = LayoutInflater.from(getActivity()).inflate(R.layout.row_width, null, false);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+        layoutParams.weight = 1;
+        rowView.setLayoutParams(layoutParams);
+        setVisibility(rowView, row);
+        columnViewLL.addView(rowView);
+    }
+
+    private void buildRowHeightView(LinearLayout columnViewLL, Row row) {
+        View rowView = LayoutInflater.from(getActivity()).inflate(R.layout.row_height, null, false);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+        layoutParams.weight = 1;
+        rowView.setLayoutParams(layoutParams);
+        setVisibility(rowView, row);
+        columnViewLL.addView(rowView);
+    }
+
+    private void setVisibility(View rowView, Row row) {
+        if (row.isRowShow()) {
+            rowView.setVisibility(View.VISIBLE);
+        } else {
+            rowView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private LinearLayout buildColumnView(int numRow) {
+        LinearLayout columnViewLL = new LinearLayout(getActivity());
+        columnViewLL.setOrientation(LinearLayout.VERTICAL);
+        columnViewLL.setWeightSum(numRow);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.weight = 1;
+
+        columnViewLL.setLayoutParams(layoutParams);
+        storeLinearLayout.addView(columnViewLL);
+        return columnViewLL;
+    }
 
 
+    private void buildAllColumn(int numColumn) {
+        storeLinearLayout.setWeightSum(numColumn);
     }
 }

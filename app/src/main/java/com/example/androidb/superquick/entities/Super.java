@@ -59,7 +59,7 @@ public class Super extends ParseObject {
 
         List<Column> parsedColumns=new ArrayList<>();
         ParseQuery<Column> queryColumns = ParseQuery.getQuery("Column");
-        queryColumns.whereEqualTo("column_superId", UserSessionData.getInstance().chosenSuperId);
+        //queryColumns.whereEqualTo("column_superId", UserSessionData.getInstance().chosenSuperId);
         try {
             parsedColumns = queryColumns.find();
         } catch (
@@ -67,7 +67,6 @@ public class Super extends ParseObject {
             e.printStackTrace();
         }
         return parsedColumns;
-
-
     }
+
 }

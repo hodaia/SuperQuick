@@ -20,12 +20,26 @@
         android:horizontalSpacing="10dp"
         android:stretchMode="spacingWidthUniform"
         />
-    <Button
-        android:id="@+id/goToCartBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="עגלת קניות"
-        android:layout_alignParentBottom="true"
-        />
-</RelativeLayout>
+        <Button
+            android:id="@+id/saveShoppingListBtn"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+
+            />
+
+        <Button
+            android:id="@+id/goToSupersListBtn"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:text="@string/goToSupersList" />
+
+
+    </RelativeLayout>
+
 </FrameLayout>

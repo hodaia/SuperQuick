@@ -121,13 +121,6 @@ public class ProductDialogFragment extends DialogFragment {
         View fragmentView= inflater.inflate(R.layout.fragment_product_dialog, container, false);
 
         //שליפת רשימת התת-קטדגוריות עפ"י הקטגוריה שנלחצה
-        Button closeAndSaveDialogBtn = (Button)fragmentView.findViewById(R.id.closeAndSaveDialogBtn);
-        closeAndSaveDialogBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-                }
-        });
 
         Button closeDialogBtn = (Button)fragmentView.findViewById(R.id.closeDialogBtn);
         closeDialogBtn.setOnClickListener(new View.OnClickListener() {

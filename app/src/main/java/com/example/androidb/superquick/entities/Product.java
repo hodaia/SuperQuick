@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.example.androidb.superquick.General.UserSessionData;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 
 @ParseClassName("Product")
 public class Product extends ParseObject {
@@ -56,12 +56,14 @@ public class Product extends ParseObject {
         put("productDescription", productDescription);
     }
 
-    public SubCategory getProduct_subCategoryCode() {
-        return product_subCategoryCode;
+    public Integer getProduct_subCategoryCode() {
+         ParseRelation<ParseObject> p= getRelation("product_subCategoryCode");
+        SubCategory p1=SubCategory.class.cast(p);
+        return p1.getSubCategoryId();
     }
 
     public void setProduct_subCategoryCode(SubCategory product_subCategoryCode) {
-        this.product_subCategoryCode = product_subCategoryCode;
+        put("product_subCategoryCode", product_subCategoryCode);
     }
 
 
@@ -91,12 +93,12 @@ public class Product extends ParseObject {
         List<Product>products=new ArrayList<>();
         for (SubCategory s:parsedSubCategories)
               {
-                  for(Product p:ParsedProducts) {
-                      if(p.getProduct_subCategoryCode().getSubCategoryId()==s.getSubCategoryId())
+                  /*for(Product p:ParsedProducts) {
+                      if(p.getProduct_subCategoryCode()==s.getSubCategoryId())
                           products.add(p);
-                  }
-                  integerListHashMap.put(s,products );
-                  products.removeAll(products);
+                  }*/
+                  integerListHashMap.put(s,ParsedProducts );
+                  //products.clear();
         }
 
         return  integerListHashMap;

@@ -77,7 +77,7 @@ public class ProductInShoppingList extends ParseObject {
     }
 
 
-    public static List<ProductInShoppingList> getProductsAmount(int shoppingListId) {
+    public static List<ProductInShoppingList> getProductsInShoppingList(int shoppingListId) {
 
         List<ProductInShoppingList> ParsedProducts = null;
 

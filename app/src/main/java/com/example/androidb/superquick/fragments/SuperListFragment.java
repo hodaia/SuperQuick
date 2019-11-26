@@ -10,9 +10,13 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
+import com.example.androidb.superquick.activities.ShoppingListContentActivity;
 import com.example.androidb.superquick.activities.ShoppingListProcessActivity;
 import com.example.androidb.superquick.adapters.SuperListAdapter;
+import com.example.androidb.superquick.entities.ProductInShoppingList;
+import com.example.androidb.superquick.entities.ProductInSuper;
 import com.example.androidb.superquick.entities.Super;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -102,9 +106,15 @@ public class SuperListFragment extends Fragment {
         //call the function
         parsedSupers=Super.getSupers();
 
+        int shoppingListId;
+        if (UserSessionData.getInstance().userCurrentShoppingListId == 0)
+            shoppingListId=UserSessionData.getInstance().userShoppingList.getShoppingListId();
+        else
+        shoppingListId=UserSessionData.getInstance().userCurrentShoppingListId;
+
         //call the adapter for superListView
         superListView = fragmentView.findViewById(R.id.supersListView);
-        superListAdapter = new SuperListAdapter(parsedSupers,getActivity());
+        superListAdapter = new SuperListAdapter(parsedSupers,getActivity(),shoppingListId);
         superListView.setAdapter(superListAdapter);
         return  fragmentView;
     }

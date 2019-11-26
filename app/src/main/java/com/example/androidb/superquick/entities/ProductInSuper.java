@@ -2,6 +2,10 @@ package com.example.androidb.superquick.entities;
 
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ParseClassName("ProductInSuper")
 public class ProductInSuper extends ParseObject {
@@ -59,4 +63,36 @@ public class ProductInSuper extends ParseObject {
     public void setProductInSuper_rowId(int productInSuper_rowId) {
         put("productInSuper_rowId",productInSuper_rowId);
     }
+
+    //productInSuper quries
+
+
+    public static float shoppingListCostInSuper(int superId, int shoppingListId) {
+        int s=0;
+        List<ProductInShoppingList> parsedproductInShoppingList=new ArrayList<>();
+        ParseQuery<ProductInShoppingList> productInShoppingListQuery= ParseQuery.getQuery("ProductInShoppingList");
+        productInShoppingListQuery.whereEqualTo("productInShoppingList_shoppingListId",shoppingListId);
+        productInShoppingListQuery.orderByDescending("productInShoppingList_shoppingListId");
+        try {
+            parsedproductInShoppingList = productInShoppingListQuery.find();
+        } catch (Exception e) {
+        }
+
+        ParseQuery<ProductInSuper> productInSuperQuery= ParseQuery.getQuery("ProductInSuper");
+        //productInSuperQuery.whereEqualTo("productInSuper_superId",superId);
+        productInSuperQuery.whereMatchesKeyInQuery("productInSuper_productId","productInShoppingList_productId",productInShoppingListQuery);
+        productInSuperQuery.orderByDescending("productInSuper_productId");
+
+        List<ProductInSuper> parsedProductInSuper=new ArrayList<>();
+        try {
+            parsedProductInSuper = productInSuperQuery.find();
+        } catch (Exception e) {
+        }
+
+        for (int i=0;i<parsedproductInShoppingList.size();i++){
+            s+=parsedproductInShoppingList.get(i).getProductInShoppingListAmount()*parsedProductInSuper.get(i).getProductInSuperPrice();
+        }
+        return (float)s;
+    }
+
 }
