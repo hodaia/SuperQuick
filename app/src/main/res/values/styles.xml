@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="btnTextDesign" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:background">@color/myGreen</item>
         <item name="android:layout_margin">5dp</item>

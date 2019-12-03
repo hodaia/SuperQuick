@@ -79,7 +79,7 @@
     >
     <Button
         android:id="@+id/saveUser"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="@string/save"
@@ -88,7 +88,7 @@
         ></Button>
     <Button
         android:id="@+id/back"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="@string/cancel" style="@style/btnTextDesign"
