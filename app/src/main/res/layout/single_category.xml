@@ -8,8 +8,8 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:scaleType="centerCrop"
-        android:background="@color/colorAccent"
-        android:textColor="@color/colorPrimaryDark"
+        android:background="@color/myGreen"
+        android:textColor="@color/white"
 
         android:padding="10dp"
         />

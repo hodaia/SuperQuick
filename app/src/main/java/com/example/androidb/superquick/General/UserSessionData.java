@@ -33,13 +33,13 @@ public class UserSessionData {
         }
         return true;
     }
-    public static void newUserList() {
+    public static int newUserList() {
         Date now=new Date();
         int lastShoppingList;
         //call the function for the last shoppingListId
         lastShoppingList=ShoppingList.getLastShoppingList();
         userSessionData.userShoppingList=new ShoppingList(lastShoppingList+1,"shoppingList",UserSessionData.getInstance().user.getUserId(), now);
-
+return lastShoppingList+1;
     }
     public static void newUserListContent() {
         userSessionData.userShoppingListContent=new ArrayList<>();

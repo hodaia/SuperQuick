@@ -5,31 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.StartMenuActivity"
-    android:textAlignment="center">
+    android:textAlignment="center"
+    android:background="@color/myBackground">
 <LinearLayout
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-
+    android:layout_centerVertical="true"
+    android:layout_centerInParent="true"
     >
     <Button
         android:id="@+id/shoppingListsBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/goToShoppingListMenu"/>
+        android:text="@string/goToShoppingListMenu"
+        style="@style/btnTextDesign"
+        android:background="@drawable/btn_color"
+        android:layout_margin="@dimen/text_margin"
+       />
     <Button
         android:id="@+id/mapsListBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/goToMapsList"/>
+        style="@style/btnTextDesign"
+        android:text="@string/goToMapsList"
+        android:background="@drawable/btn_color"
+        android:layout_margin="@dimen/text_margin"
+
+        />
 </LinearLayout>
 
     <ImageButton
         android:id="@+id/settingsBtn"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_settings"
+        app:srcCompat="@drawable/ic_settings"
         android:text="@string/settings" />
 
 </RelativeLayout>

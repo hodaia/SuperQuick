@@ -18,6 +18,9 @@
         android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:text="@string/goToMaps"/>
+    android:text="@string/goToMaps"
+        style="@style/btnTextDesign"
+        android:background="@drawable/btn_color"
+        />
 </RelativeLayout>
 </FrameLayout>

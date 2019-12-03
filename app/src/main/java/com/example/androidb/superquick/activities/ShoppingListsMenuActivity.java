@@ -47,7 +47,7 @@ public class ShoppingListsMenuActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(ShoppingListsMenuActivity.this, ShoppingListProcessActivity.class);
                 intent.putExtra("specificFragment", "ShoppingCategoriesFragment");
-                intent.putExtra("shoppingListId",UserSessionData.getInstance().userShoppingList.getShoppingListId() );
+                intent.putExtra("shoppingListId",UserSessionData.newUserList() );
 
                 startActivity(intent);
             }

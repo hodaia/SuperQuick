@@ -102,6 +102,7 @@ public class ShoppingCategoriesFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_shopping_categories, container, false);
         int shoppingListId = (int) getActivity().getIntent().getIntExtra("shoppingListId", -1);
+
         if (UserSessionData.getInstance().userShoppingList == null)
             UserSessionData.getInstance().userCurrentShoppingListId = shoppingListId;
 
@@ -112,13 +113,15 @@ public class ShoppingCategoriesFragment extends Fragment {
             public void onClick(View view) {
                 if (UserSessionData.getInstance().userShoppingListContent.size() > 0) {
 
-                    UserSessionData.getInstance().userShoppingList.saveInBackground();
-                    for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
-                        p.saveInBackground();
-                    }
+
                     Intent intent = new Intent();
-                    if (UserSessionData.getInstance().userCurrentShoppingListId == 0)
+                    if (UserSessionData.getInstance().userCurrentShoppingListId == 0){
                         intent.putExtra("shoppingListId", UserSessionData.getInstance().userShoppingList.getShoppingListId());
+                        UserSessionData.getInstance().userShoppingList.saveInBackground();
+                        for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
+                            p.saveInBackground();
+                        }
+                    }
                     else
                         intent.putExtra("shoppingListId", UserSessionData.getInstance().userCurrentShoppingListId);
                     intent.setClass(getActivity(),ShoppingListContentActivity.class);
@@ -179,9 +182,7 @@ public class ShoppingCategoriesFragment extends Fragment {
 
         //call the adapter for the shoppingCategoriesGridView
         shoppingCategoriesGridView = fragmentView.findViewById(R.id.shoppingCategoriesGridView);
-        shoppingCategoriesAdapter = new
-
-                CategoryListAdapter(getActivity(), ParsedCategories);
+        shoppingCategoriesAdapter = new CategoryListAdapter(getActivity(), ParsedCategories);
         shoppingCategoriesGridView.setAdapter(shoppingCategoriesAdapter);
         return fragmentView;
     }

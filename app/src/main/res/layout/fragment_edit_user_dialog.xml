@@ -82,12 +82,17 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/save"></Button>
+        android:text="@string/save"
+        style="@style/btnTextDesign"
+        android:background="@drawable/btn_color"
+        ></Button>
     <Button
         android:id="@+id/back"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/cancel"></Button>
+        android:text="@string/cancel" style="@style/btnTextDesign"
+        android:background="@drawable/btn_color"
+        ></Button>
 </LinearLayout>
 </RelativeLayout>

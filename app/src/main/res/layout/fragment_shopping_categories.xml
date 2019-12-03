@@ -27,6 +27,8 @@
             android:text="@string/save"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            style="@style/btnTextDesign"
+            android:background="@drawable/btn_color"
 
             />
 
@@ -37,7 +39,10 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp"
-            android:text="@string/goToSupersList" />
+            android:text="@string/goToSupersList"
+            style="@style/btnTextDesign"
+            android:background="@drawable/btn_color"
+            />
 
 
     </RelativeLayout>

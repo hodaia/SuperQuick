@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/myOrange"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -36,6 +36,11 @@
         app:fabSize="normal"
         app:srcCompat="@android:drawable/ic_input_add"
         app:maxImageSize="@android:dimen/app_icon_size"
+        android:backgroundTint="@color/myGreen"
+        app:backgroundTint="@color/myGreen"
+        android:tint="@color/white"
+
+
         />
     <ListView
         android:id="@+id/shoppingListMenuView"

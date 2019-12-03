@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:text="@string/goToShoppingCart"
         android:layout_alignParentRight="true"
+        style="@style/btnTextDesign"
+        android:background="@drawable/btn_color"
 
         />
     <Button
@@ -31,5 +33,7 @@
         android:layout_height="wrap_content"
         android:text="@string/editList"
         android:layout_alignParentLeft="true"
+        style="@style/btnTextDesign"
+        android:background="@drawable/btn_color"
         /></RelativeLayout>
 </RelativeLayout>

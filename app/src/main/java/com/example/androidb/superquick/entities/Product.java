@@ -1,11 +1,13 @@
 package com.example.androidb.superquick.entities;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import com.example.androidb.superquick.General.UserSessionData;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
@@ -56,10 +58,38 @@ public class Product extends ParseObject {
         put("productDescription", productDescription);
     }
 
-    public Integer getProduct_subCategoryCode() {
-         ParseRelation<ParseObject> p= getRelation("product_subCategoryCode");
-        SubCategory p1=SubCategory.class.cast(p);
-        return p1.getSubCategoryId();
+    public int getProduct_subCategoryCode() {
+        ParseRelation<SubCategory> relation = getRelation("product_subCategoryCode");
+        int id;
+        List<SubCategory> results1=new ArrayList<>();
+        try {
+             results1=relation.getQuery().find();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        /*relation.getQuery().findInBackground(new FindCallback<SubCategory>() {
+            private List<SubCategory> results;
+            private ParseException e;
+
+            public void done(List<SubCategory> results, ParseException e) {
+                this.results = results;
+                this.e = e;
+                id= results.get(0).getSubCategoryId();
+                if (e != null) {
+                    // There was an error
+                } else {
+                    // results have all the Posts the current user liked.
+                }
+            }
+        });
+        Object o=get("product_subCategoryCode").;
+
+        SubCategory sc= SubCategory.class.cast(get("product_subCategoryCode"));
+        return sc.getSubCategoryId();*/
+        return results1.get(0).getSubCategoryId();
+
+
     }
 
     public void setProduct_subCategoryCode(SubCategory product_subCategoryCode) {
@@ -93,12 +123,13 @@ public class Product extends ParseObject {
         List<Product>products=new ArrayList<>();
         for (SubCategory s:parsedSubCategories)
               {
-                  /*for(Product p:ParsedProducts) {
+                  for(Product p:ParsedProducts) {
+                      int x=p.getProduct_subCategoryCode();
                       if(p.getProduct_subCategoryCode()==s.getSubCategoryId())
                           products.add(p);
-                  }*/
-                  integerListHashMap.put(s,ParsedProducts );
-                  //products.clear();
+                  }
+                  integerListHashMap.put(s,products);
+                  products=new ArrayList<>();
         }
 
         return  integerListHashMap;

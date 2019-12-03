@@ -55,7 +55,7 @@ public class SuperListAdapter extends BaseAdapter {
         TextView totalPriceTextView=(TextView)convertView.findViewById(R.id.totalPriceTextView);
         float totalPrice=ProductInSuper.shoppingListCostInSuper(supers.get(position).getSuperId(),shoppingListId);
         totalPriceTextView.setText(String.valueOf(totalPrice));
-        ProductInSuper.shoppingListCostInSuper(supers.get(position).getSuperId(),shoppingListId);
+        //ProductInSuper.shoppingListCostInSuper(supers.get(position).getSuperId(),shoppingListId);
         singleSuper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

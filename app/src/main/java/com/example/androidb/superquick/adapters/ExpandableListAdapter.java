@@ -116,6 +116,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView productAmountEditText = (TextView) convertView.findViewById(R.id.productAmountEditText);
 
         final View finalConvertView = convertView;
+        //productAmountEditText.onKeyUp()
         productAmountEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -125,12 +126,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 afterProductAmount=Integer.parseInt(s.toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 TextView productAmountEditText = (TextView) finalConvertView.findViewById(R.id.productAmountEditText);
-
+           if(afterProductAmount!=0){
                 if (prevProductAmount == 0)
                     //create a new ProductInShoppingList
                     UserSessionData.getInstance().userShoppingListContent.add(new ProductInShoppingList(UserSessionData.getInstance().userShoppingList.getShoppingListId(), expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductId(),Integer.parseInt(productAmountEditText.getText().toString()) ));
@@ -140,7 +142,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                            p.setProductInShoppingListAmount(Integer.parseInt(productAmountEditText.getText().toString()));
                     };
                 }
-            }
+            }}
         });
 
         expandedListTextView.setText(expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductDescription());

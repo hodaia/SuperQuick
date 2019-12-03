@@ -72,14 +72,14 @@ public class ProductInSuper extends ParseObject {
         List<ProductInShoppingList> parsedproductInShoppingList=new ArrayList<>();
         ParseQuery<ProductInShoppingList> productInShoppingListQuery= ParseQuery.getQuery("ProductInShoppingList");
         productInShoppingListQuery.whereEqualTo("productInShoppingList_shoppingListId",shoppingListId);
-        productInShoppingListQuery.orderByDescending("productInShoppingList_shoppingListId");
+        productInShoppingListQuery.orderByDescending("productInShoppingList_productId");
         try {
             parsedproductInShoppingList = productInShoppingListQuery.find();
         } catch (Exception e) {
         }
 
         ParseQuery<ProductInSuper> productInSuperQuery= ParseQuery.getQuery("ProductInSuper");
-        //productInSuperQuery.whereEqualTo("productInSuper_superId",superId);
+        productInSuperQuery.whereEqualTo("productInSuper_superId",superId);
         productInSuperQuery.whereMatchesKeyInQuery("productInSuper_productId","productInShoppingList_productId",productInShoppingListQuery);
         productInSuperQuery.orderByDescending("productInSuper_productId");
 
@@ -90,7 +90,7 @@ public class ProductInSuper extends ParseObject {
         }
 
         for (int i=0;i<parsedproductInShoppingList.size();i++){
-            s+=parsedproductInShoppingList.get(i).getProductInShoppingListAmount()*parsedProductInSuper.get(i).getProductInSuperPrice();
+            s+=parsedproductInShoppingList.get(i).getProductInShoppingListAmount();//parsedProductInSuper.get(0).getProductInSuperPrice();
         }
         return (float)s;
     }
