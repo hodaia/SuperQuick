@@ -44,8 +44,16 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
                 break;
             case "null":
                     break;
-        }}
-
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            this.finish();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
 
     // This method is used to set the default fragment that will be shown.
     private void setDefaultFragment(Fragment defaultFragment)

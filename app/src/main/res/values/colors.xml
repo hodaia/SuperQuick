@@ -8,4 +8,6 @@
     <color name="white">#FFFFFF</color>
     <color name="ripple">#33FFFFFF</color>
     <color name="myBackground">#FDEDD6</color>
+    <color name="myGrey">#C7C3BE</color>
+
 </resources>

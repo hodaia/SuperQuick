@@ -76,10 +76,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
+    android:weightSum="2"
     >
     <Button
         android:id="@+id/saveUser"
-        android:layout_width="130dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="@string/save"
@@ -88,7 +90,8 @@
         ></Button>
     <Button
         android:id="@+id/back"
-        android:layout_width="130dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="@string/cancel" style="@style/btnTextDesign"

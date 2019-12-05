@@ -20,21 +20,28 @@
         android:horizontalSpacing="10dp"
         android:stretchMode="spacingWidthUniform"
         />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:weightSum="2">
         <Button
             android:id="@+id/saveShoppingListBtn"
-            android:layout_width="190dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/save"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             style="@style/btnTextDesign"
             android:background="@drawable/btn_color"
-
             />
 
         <Button
             android:id="@+id/goToSupersListBtn"
-            android:layout_width="190dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
@@ -44,7 +51,7 @@
             android:background="@drawable/btn_color"
             />
 
-
+    </LinearLayout>
     </RelativeLayout>
 
 </FrameLayout>

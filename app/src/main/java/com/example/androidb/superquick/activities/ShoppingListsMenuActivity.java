@@ -30,13 +30,14 @@ public class ShoppingListsMenuActivity extends AppCompatActivity {
     List<ShoppingList> parsedShoppingList;
     ShoppingListMenuAdapter shoppingListMenuAdapter;
     public List<ShoppingList> userShoppingList;
+    static boolean loaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_lists_menu);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         addShoppingListBtn = (FloatingActionButton) findViewById(R.id.addShoppingListBtn);
         addShoppingListBtn.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +62,23 @@ public class ShoppingListsMenuActivity extends AppCompatActivity {
         shoppingListMenuAdapter = new ShoppingListMenuAdapter(parsedShoppingList,this);
         shoppingListMenuView.setAdapter(shoppingListMenuAdapter);
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!loaded) {
+            //First time just set the loaded flag true
+            loaded = true;
+        } else {
+            //Log.i("Resuming", "back to my first activity");
+
+            //Reload data
+            parsedShoppingList=new ArrayList<>();
+            parsedShoppingList = ShoppingList.getShoppingListByUserId();
+            shoppingListMenuAdapter = new ShoppingListMenuAdapter(parsedShoppingList,this);
+            shoppingListMenuView.setAdapter(shoppingListMenuAdapter);
+
+        }
     }
 
 }

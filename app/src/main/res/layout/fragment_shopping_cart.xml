@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ShoppingCartFragment">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/shoppingListMenuView"
@@ -12,17 +14,18 @@
         android:layout_height="wrap_content"
         >
     </ListView>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_alignParentBottom="true"
         >
      <Button
-       android:id="@+id/saveShoppingListBtn"
-       android:layout_width="190dp"
-       android:layout_height="wrap_content"
-       android:text="@string/save"
-         android:layout_alignParentRight="true"
-       android:layout_alignParentBottom="true"
+         android:id="@+id/saveShoppingListBtn"
+         android:layout_width="0dp"
+         android:layout_weight="1"
+         android:layout_height="wrap_content"
+         android:text="@string/save"
          style="@style/btnTextDesign"
          android:background="@drawable/btn_color"
 
@@ -30,16 +33,14 @@
 
         <Button
             android:id="@+id/goToSupersListBtn"
-            android:layout_width="190dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp"
             android:text="@string/goToSupersList"
             style="@style/btnTextDesign"
             android:background="@drawable/btn_color"
             />
-
-
-    </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
 </FrameLayout>

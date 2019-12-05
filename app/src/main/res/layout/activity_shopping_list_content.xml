@@ -11,15 +11,17 @@
         android:layout_height="wrap_content"
         >
     </ListView>
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:weightSum="2">
 
     <Button
         android:id="@+id/goToCartBtn"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="@string/goToShoppingCart"
         android:layout_alignParentRight="true"
@@ -29,11 +31,12 @@
         />
     <Button
         android:id="@+id/editListBtn"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="@string/editList"
         android:layout_alignParentLeft="true"
         style="@style/btnTextDesign"
         android:background="@drawable/btn_color"
-        /></RelativeLayout>
+        /></LinearLayout>
 </RelativeLayout>

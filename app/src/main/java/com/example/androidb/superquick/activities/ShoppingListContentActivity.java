@@ -68,5 +68,15 @@ public class ShoppingListContentActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed()
+    {
+
+        Intent i = new Intent(this,ShoppingListsMenuActivity.class );
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
+
 
 }
