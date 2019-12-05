@@ -68,8 +68,8 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
 
         TextView singleShoppingListDate=(TextView)convertView.findViewById(R.id.singleShoppingListDate);
         singleShoppingListDate.setText(String.valueOf(shoppingLists.get(position).getCreatedAt().getDay()+"/"+
-                shoppingLists.get(position).getShoppingListDate().getMonth())+"/"+
-                shoppingLists.get(position).getShoppingListDate().getYear());
+                shoppingLists.get(position).getCreatedAt().getMonth())+"/"+
+                shoppingLists.get(position).getCreatedAt().getYear());
 
         LinearLayout singleShoppingList=(LinearLayout)convertView.findViewById(R.id.singleShoppingList);
 
