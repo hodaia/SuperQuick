@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+   >
+
     <ImageButton
         android:id="@+id/productDeleteIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_delete"
-        />
+        app:srcCompat="@drawable/ic_delete" />
+
     <EditText
         android:id="@+id/productAmountEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/singleProduct"
-        android:layout_alignRight="@+id/singleProduct"
-        android:layout_marginEnd="27dp"
-        android:layout_marginRight="27dp"
-        android:textColor="@color/colorPrimaryDark"
         android:inputType="number"
         android:text="0"
-
-        />
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginLeft="50dp"/>
     <TextView
         android:id="@+id/singleProduct"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:scaleType="centerCrop"
         android:text="product"
+        android:layout_alignParentRight="true"
         />
-</LinearLayout>
+</RelativeLayout>

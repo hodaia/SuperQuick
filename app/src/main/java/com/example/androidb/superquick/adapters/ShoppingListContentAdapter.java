@@ -85,8 +85,6 @@ public class ShoppingListContentAdapter extends BaseAdapter {
                                 }*/
                                 //productsAmount.remove(productsAmount.get(position));
                                 adapter.notifyDataSetChanged();
-
-
                        }
                         }
                 });

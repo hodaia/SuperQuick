@@ -127,7 +127,8 @@ public class ShoppingCategoriesFragment extends Fragment {
                     intent.setClass(getActivity(),ShoppingListContentActivity.class);
                     startActivity(intent);
                 } else {
-                    createAlertDialog();
+                    UserSessionData.createAlertDialog(String.valueOf(R.string.emptyListAlertDialogMsg),String.valueOf(R.string.emptyListAlertDialogTitle),getActivity());
+
                 }
             }
         });
@@ -148,7 +149,8 @@ public class ShoppingCategoriesFragment extends Fragment {
                     ((ShoppingListProcessActivity) getActivity()).replaceFragment(superListFragment);
                 }
                 else {
-                    createAlertDialog();
+                    UserSessionData.createAlertDialog(String.valueOf(R.string.emptyListAlertDialogMsg),String.valueOf(R.string.emptyListAlertDialogTitle),getActivity());
+
                 }
             }
         });
@@ -187,52 +189,6 @@ public class ShoppingCategoriesFragment extends Fragment {
         return fragmentView;
     }
 
-    private void createAlertDialog() {
-        // Create the object of
-        // AlertDialog Builder class
-        AlertDialog.Builder builder
-                = new AlertDialog
-                .Builder(getActivity());
 
-        // Set the message show for the Alert time
-        builder.setMessage(R.string.emptyListAlertDialogMsg);
-
-        // Set Alert Title
-        builder.setTitle(R.string.emptyListAlertDialogTitle);
-
-        // Set Cancelable false
-        // for when the user clicks on the outside
-        // the Dialog Box then it will remain show
-        builder.setCancelable(false);
-
-        // Set the positive button with yes name
-        // OnClickListener method is use of
-        // DialogInterface interface.
-
-        builder
-                .setPositiveButton(
-                        "ok",
-                        new DialogInterface
-                                .OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-
-                                // When the user click yes button
-                                // then app will close
-                                dialog.cancel();
-                            }
-                        });
-
-
-        // Create the Alert dialog
-        AlertDialog alertDialog = builder.create();
-
-        // Show the Alert Dialog box
-        alertDialog.show();
-
-
-    }
 
 }

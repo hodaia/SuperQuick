@@ -1,23 +1,26 @@
 package com.example.androidb.superquick.General;
 
-import com.example.androidb.superquick.entities.Product;
+import android.content.DialogInterface;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.androidb.superquick.entities.ProductInShoppingList;
 import com.example.androidb.superquick.entities.ShoppingList;
-import com.example.androidb.superquick.entities.User;
 import com.example.androidb.superquick.entities.Users;
-import com.parse.ParseQuery;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class UserSessionData {
     private static UserSessionData userSessionData=null;
     public Users user;
     public List<ProductInShoppingList> userShoppingListContent;
     public ShoppingList userShoppingList;
+    public  boolean erase =false;
+
     public int userCurrentShoppingListId;
     public int chosenSuperId;
 
@@ -41,6 +44,13 @@ public class UserSessionData {
         userSessionData.userShoppingList=new ShoppingList(lastShoppingList+1,"shoppingList",UserSessionData.getInstance().user.getUserId(), now);
 return lastShoppingList+1;
     }
+
+   public static void eraseListOrMap(){
+        userSessionData.erase=true;
+   }
+    public static boolean getErase(){
+       return userSessionData.erase;
+    }
     public static void newUserListContent() {
         userSessionData.userShoppingListContent=new ArrayList<>();
 
@@ -58,5 +68,112 @@ return lastShoppingList+1;
     public static void ChosenSuper(int superId) {
         userSessionData.chosenSuperId=superId;
 
+    }
+    public static void createAlertDialog(String message, String title, FragmentActivity getActivity) {
+        // Create the object of
+        // AlertDialog Builder class
+        AlertDialog.Builder builder
+                = new AlertDialog
+                .Builder(getActivity);
+
+        // Set the message show for the Alert time
+        builder.setMessage(message);
+
+        // Set Alert Title
+        builder.setTitle(title);
+
+        // Set Cancelable false
+        // for when the user clicks on the outside
+        // the Dialog Box then it will remain show
+        builder.setCancelable(false);
+
+        // Set the positive button with yes name
+        // OnClickListener method is use of
+        // DialogInterface interface.
+
+        builder
+                .setPositiveButton(
+                        "ok",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+
+                                // When the user click yes button
+                                // then app will close
+                                dialog.cancel();
+                            }
+                        });
+
+
+        // Create the Alert dialog
+        AlertDialog alertDialog = builder.create();
+
+        // Show the Alert Dialog box
+        alertDialog.show();
+
+
+    }
+    public static void createAlertDialog(String message, int title, String topic, FragmentActivity getActivity) {
+        // Create the object of
+        // AlertDialog Builder class
+        AlertDialog.Builder builder
+                = new AlertDialog
+                .Builder(getActivity);
+
+        // Set the message show for the Alert time
+        String c=topic+message;
+        builder.setMessage(c);
+        // Set Alert Title
+        builder.setTitle(title);
+
+        // Set Cancelable false
+        // for when the user clicks on the outside
+        // the Dialog Box then it will remain show
+        builder.setCancelable(false);
+
+        // Set the positive button with yes name
+        // OnClickListener method is use of
+        // DialogInterface interface.
+
+        builder
+                .setPositiveButton(
+                        "מחק",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                UserSessionData.eraseListOrMap();
+                                // When the user click yes button
+                                // then app will close
+                                dialog.cancel();
+
+                            }
+                        });
+        builder
+                .setNegativeButton(
+                        "בטל",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // When he user click yes button
+                                // then app will close
+                                dialog.cancel();
+
+                            }
+                        });
+
+        // Create the Alert dialog
+        AlertDialog alertDialog = builder.create();
+
+        // Show the Alert Dialog box
+        alertDialog.show();
     }
 }
