@@ -9,7 +9,8 @@
     <ListView
         android:id="@+id/supersListView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:listSelector="@drawable/list_color"></ListView>
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">

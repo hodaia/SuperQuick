@@ -36,10 +36,10 @@ public class ShoppingListContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list_content);
 
-        final int shoppingListId = getIntent().getExtras().getInt("shoppingListId");
+        final int shoppingListId = UserSessionData.getInstance().userCurrentShoppingListId;
         //call the function
         parsedShoppingListContent=ProductInShoppingList.getProductsOfShoppingList(shoppingListId);
-        productsAmount=ProductInShoppingList.getProductsInShoppingList(shoppingListId);
+        productsAmount=ProductInShoppingList.getProductsInShoppingList();
         //call the adapter for the shoppingList
         shoppingListContentView = findViewById(R.id.shoppingListContentView);
         shoppingListContentAdapter = new ShoppingListContentAdapter(parsedShoppingListContent,productsAmount,this);

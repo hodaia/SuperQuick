@@ -104,7 +104,7 @@ public class SuperListFragment extends Fragment {
         });
 
         //call the function
-        parsedSupers=Super.getSupers();
+        parsedSupers=Super.getSuperByCityId(UserSessionData.getInstance().userCityId);
 
         int shoppingListId;
         if (UserSessionData.getInstance().userCurrentShoppingListId == 0)

@@ -45,6 +45,7 @@ public class ShoppingListsMenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                 UserSessionData.newUserListContent();
                 UserSessionData.newUserList();
+                UserSessionData.getInstance().userCurrentShoppingListId=0;
                 Intent intent = new Intent();
                 intent.setClass(ShoppingListsMenuActivity.this, ShoppingListProcessActivity.class);
                 intent.putExtra("specificFragment", "ShoppingCategoriesFragment");

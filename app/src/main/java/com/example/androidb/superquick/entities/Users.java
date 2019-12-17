@@ -12,17 +12,18 @@ public class Users extends ParseObject {
     public String userEmail;
     private String userPassword;
     private String userName;
-
+    private int user_cityId;
 
     public Users() {
         //  User userReference = ParseObject.createWithoutData(User.class,);
     }
 
-    public Users(int userId, String userEmail, String userPassword, String userName) {
+    public Users(int userId, String userEmail, String userPassword, String userName,int user_cityId) {
         setUserId(userId);
         setUserEmail(userEmail);
         setUserPassword(userPassword);
         setUserName(userName);
+        setUser_cityId(user_cityId);
     }
 
     public int getUserId() {
@@ -57,6 +58,11 @@ public class Users extends ParseObject {
         put("userName", userName);
     }
 
+    public int getUser_cityId() { return getInt("user_cityId"); }
+
+    public void setUser_cityId(int user_cityId) {
+        put("user_cityId",user_cityId);
+    }
 
     //user queries
 

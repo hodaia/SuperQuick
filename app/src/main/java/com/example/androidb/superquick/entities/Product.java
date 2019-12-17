@@ -68,26 +68,7 @@ public class Product extends ParseObject {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        /*relation.getQuery().findInBackground(new FindCallback<SubCategory>() {
-            private List<SubCategory> results;
-            private ParseException e;
-
-            public void done(List<SubCategory> results, ParseException e) {
-                this.results = results;
-                this.e = e;
-                id= results.get(0).getSubCategoryId();
-                if (e != null) {
-                    // There was an error
-                } else {
-                    // results have all the Posts the current user liked.
-                }
-            }
-        });
-        Object o=get("product_subCategoryCode").;
-
-        SubCategory sc= SubCategory.class.cast(get("product_subCategoryCode"));
-        return sc.getSubCategoryId();*/
-        return results1.get(0).getSubCategoryId();
+         return results1.get(0).getSubCategoryId();
 
 
     }
@@ -136,10 +117,16 @@ public class Product extends ParseObject {
     }
 
     public static List<Product> getCurrentCartList() {
+        int shoppingListId;
+        if(UserSessionData.getInstance().userCurrentShoppingListId==0)
+            shoppingListId=UserSessionData.getInstance().userShoppingList.getShoppingListId();
+        else
+            shoppingListId=UserSessionData.getInstance().userCurrentShoppingListId;
+
         List<Product> ParsedProducts = new ArrayList<>();
 
         ParseQuery<ProductInShoppingList> queryCurrentShoppingList=ParseQuery.getQuery("ProductInShoppingList");
-        queryCurrentShoppingList.whereEqualTo("productInShoppingList_shoppingListId", UserSessionData.getInstance().userShoppingList.getShoppingListId());
+        queryCurrentShoppingList.whereEqualTo("productInShoppingList_shoppingListId", shoppingListId);
         ParseQuery<Product> queryCurrentProductCartList=ParseQuery.getQuery("Product");
         queryCurrentProductCartList.whereMatchesKeyInQuery("productId","productInShoppingList_productId", queryCurrentShoppingList);
         try {

@@ -48,9 +48,11 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
+
         if (getFragmentManager().getBackStackEntryCount() == 0) {
             this.finish();
         } else {
+         //   String tag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
             getFragmentManager().popBackStack();
         }
     }
@@ -71,7 +73,7 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
 
         // Replace the layout holder with the required Fragment object.
         fragmentTransaction.replace(R.id.fragmentContainer, destFragment);
-        fragmentTransaction.addToBackStack(null);
+        //fragmentTransaction.addToBackStack();
         // Commit the Fragment replace action.
         fragmentTransaction.commit();
     }

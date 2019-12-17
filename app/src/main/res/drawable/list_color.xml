@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_hovered="true">
+        <shape android:shape="rectangle">
+            <gradient android:angle="225" android:endColor="@color/myOrange" android:startColor="@color/white" />
+            <stroke android:width="4dp" android:color="@color/myOrange" />
+        </shape>
+    </item>
+    <item >
+        <shape android:shape="rectangle">
+            <gradient android:angle="225" android:endColor="@color/myOrange" android:startColor="@color/white" />
+            <stroke android:width="0dp" android:color="@color/myOrange" />
+        </shape>
+    </item>
+
+</selector>

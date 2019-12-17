@@ -6,30 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".activities.StartMenuActivity"
     android:textAlignment="center">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-
-    >
-    <Button
-        android:id="@+id/shoppingListsBtn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/goToShoppingListMenu"/>
-    <Button
-        android:id="@+id/mapsListBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/goToMapsList"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/shoppingListsBtn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/goToShoppingListMenu"
+            style="@style/btnTextDesign"
+            android:background="@drawable/btn_color"/>
+        <Button
+            android:id="@+id/mapsListBtn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/goToMapsList"
+            style="@style/btnTextDesign"
+            android:background="@drawable/btn_color"/>
+    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/settingsBtn"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_settings"
-        android:text="@string/settings" />
+
 
 </RelativeLayout>

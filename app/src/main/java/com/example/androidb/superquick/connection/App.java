@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.androidb.superquick.R;
 import com.example.androidb.superquick.entities.Category;
+import com.example.androidb.superquick.entities.City;
 import com.example.androidb.superquick.entities.Column;
 import com.example.androidb.superquick.entities.Product;
 import com.example.androidb.superquick.entities.ProductInShoppingList;
@@ -35,6 +36,7 @@ public class App extends Application {
             ParseObject.registerSubclass(User.class);
             ParseObject.registerSubclass(Column.class);
             ParseObject.registerSubclass(Row.class);
+            ParseObject.registerSubclass(City.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId(getString(R.string.back4app_app_id))
                 // if defined

@@ -13,15 +13,16 @@ import com.parse.ParseQuery;
 public class Super extends ParseObject {
     private int superId;
     private String superName;
-
+private int super_cityId;
 
     public Super() {
 
     }
 
-    public Super(int superId, String superName) {
+    public Super(int superId, String superName,int super_cityId) {
         setSuperId(superId);
         setSuperName(superName);
+        setSuper_cityId(super_cityId);
     }
 
     public int getSuperId() {
@@ -40,6 +41,13 @@ public class Super extends ParseObject {
         put("superName", superName);
     }
 
+    public int getSuper_cityId() {
+        return getInt("super_cityId");
+    }
+
+    public void setSuper_cityId(int super_cityId) {
+        put("super_cityId", super_cityId);
+    }
 
     //Super Queries
     public static List<Super> getSupers() {
@@ -67,6 +75,20 @@ public class Super extends ParseObject {
             e.printStackTrace();
         }
         return parsedColumns;
+    }
+
+    public static List<Super> getSuperByCityId(int cityId){
+
+        List<Super> parsedSupers=new ArrayList<>();
+        ParseQuery<Super> querySupers = ParseQuery.getQuery("Super");
+        querySupers.whereEqualTo("super_cityId",cityId);
+        try {
+            parsedSupers = querySupers.find();
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        return parsedSupers;
     }
 
 }

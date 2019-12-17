@@ -22,6 +22,8 @@ import com.example.androidb.superquick.activities.ShoppingListsMenuActivity;
 import com.example.androidb.superquick.activities.StartMenuActivity;
 import com.example.androidb.superquick.adapters.CategoryListAdapter;
 import com.example.androidb.superquick.adapters.ShoppingListMenuAdapter;
+import com.example.androidb.superquick.dialogs.CitiesFragmentDialog;
+import com.example.androidb.superquick.dialogs.ProductDialogFragment;
 import com.example.androidb.superquick.entities.Category;
 import com.example.androidb.superquick.entities.Product;
 import com.example.androidb.superquick.entities.ProductInShoppingList;
@@ -34,6 +36,7 @@ import com.parse.ParseQuery;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -127,7 +130,7 @@ public class ShoppingCategoriesFragment extends Fragment {
                     intent.setClass(getActivity(),ShoppingListContentActivity.class);
                     startActivity(intent);
                 } else {
-                    UserSessionData.createAlertDialog(String.valueOf(R.string.emptyListAlertDialogMsg),String.valueOf(R.string.emptyListAlertDialogTitle),getActivity());
+                    UserSessionData.createAlertDialog(R.string.emptyListAlertDialogMsg,R.string.emptyListAlertDialogTitle,getActivity());
 
                 }
             }
@@ -145,11 +148,21 @@ public class ShoppingCategoriesFragment extends Fragment {
                     for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
                         p.saveInBackground();
                     }
-                    SuperListFragment superListFragment = new SuperListFragment();
-                    ((ShoppingListProcessActivity) getActivity()).replaceFragment(superListFragment);
+                    FragmentManager ft = (getActivity()).getSupportFragmentManager();
+                    CitiesFragmentDialog citiesFragmentDialog  = new CitiesFragmentDialog();
+                    citiesFragmentDialog.show(ft, "i");
+
+                    //SuperListFragment superListFragment = new SuperListFragment();
+                    //((ShoppingListProcessActivity) getActivity()).replaceFragment(superListFragment);
+                }
+                else if(UserSessionData.getInstance().userCurrentShoppingListId!=0){
+                    FragmentManager ft = (getActivity()).getSupportFragmentManager();
+                    CitiesFragmentDialog citiesFragmentDialog  = new CitiesFragmentDialog();
+                    citiesFragmentDialog.show(ft, "i");
+
                 }
                 else {
-                    UserSessionData.createAlertDialog(String.valueOf(R.string.emptyListAlertDialogMsg),String.valueOf(R.string.emptyListAlertDialogTitle),getActivity());
+                    UserSessionData.createAlertDialog(R.string.emptyListAlertDialogMsg,R.string.emptyListAlertDialogTitle,getActivity());
 
                 }
             }

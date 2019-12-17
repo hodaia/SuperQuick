@@ -69,6 +69,7 @@ public class ProductInSuper extends ParseObject {
 
     public static float shoppingListCostInSuper(int superId, int shoppingListId) {
         int s=0;
+
         List<ProductInShoppingList> parsedproductInShoppingList=new ArrayList<>();
         ParseQuery<ProductInShoppingList> productInShoppingListQuery= ParseQuery.getQuery("ProductInShoppingList");
         productInShoppingListQuery.whereEqualTo("productInShoppingList_shoppingListId",shoppingListId);
@@ -90,7 +91,7 @@ public class ProductInSuper extends ParseObject {
         }
 
         for (int i=0;i<parsedproductInShoppingList.size();i++){
-            s+=parsedproductInShoppingList.get(i).getProductInShoppingListAmount();//parsedProductInSuper.get(0).getProductInSuperPrice();
+            s+=parsedproductInShoppingList.get(i).getProductInShoppingListAmount()*parsedProductInSuper.get(0).getProductInSuperPrice();
         }
         return (float)s;
     }

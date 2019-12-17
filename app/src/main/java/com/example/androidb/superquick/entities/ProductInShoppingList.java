@@ -77,7 +77,12 @@ public class ProductInShoppingList extends ParseObject {
     }
 
 
-    public static List<ProductInShoppingList> getProductsInShoppingList(int shoppingListId) {
+    public static List<ProductInShoppingList> getProductsInShoppingList() {
+        int shoppingListId;
+        if(UserSessionData.getInstance().userCurrentShoppingListId==0)
+            shoppingListId=UserSessionData.getInstance().userShoppingList.getShoppingListId();
+        else
+            shoppingListId=UserSessionData.getInstance().userCurrentShoppingListId;
 
         List<ProductInShoppingList> ParsedProducts = null;
 

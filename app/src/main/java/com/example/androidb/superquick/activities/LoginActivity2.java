@@ -120,6 +120,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                     FragmentManager ft = getSupportFragmentManager();
                     EditUserDialogFragment editUserDialogFragment = new EditUserDialogFragment();
                     editUserDialogFragment.show(ft, "i");
+                    finish();
                 }
                 else {
                     //saving the current user
@@ -127,6 +128,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                     Intent intent = new Intent();
                     intent.setClass(LoginActivity2.this, StartMenuActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
 

@@ -41,6 +41,7 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
     public ShoppingListMenuAdapter(List<ShoppingList> shoppingLists, Context context) {
         this.shoppingLists = shoppingLists;
         this.context = context;
+        this.adapter=this;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
         singleShoppingListName.setText(shoppingLists.get(position).getShoppingListName());
 
         TextView singleShoppingListDate=(TextView)convertView.findViewById(R.id.singleShoppingListDate);
-        singleShoppingListDate.setText(String.valueOf(shoppingLists.get(position).getCreatedAt().getDay()+"/"+
+        singleShoppingListDate.setText(String.valueOf(shoppingLists.get(position).getCreatedAt().getDate()+"/"+
                 shoppingLists.get(position).getCreatedAt().getMonth())+"/"+
                 shoppingLists.get(position).getCreatedAt().getYear());
 
@@ -78,8 +79,8 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                UserSessionData.createAlertDialog(view.getResources().getString(R.string.deleteAlertDialogMsg),
-                        R.string.deleteAlertDialogTitle,
+                UserSessionData.createAlertDialog(R.string.deleteAlertDialogMsg,
+                        view.getResources().getString(R.string.deleteAlertDialogTitle),
                         view.getResources().getString(R.string.deleteShoppingListAlertDialogMsg),((ShoppingListsMenuActivity) context));
                 boolean y=UserSessionData.getErase();
                 if(UserSessionData.getErase()) {
@@ -99,6 +100,7 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
                                                 productInShoppingList.deleteInBackground();
                                             }
                                             entity.deleteInBackground();
+
                                             adapter.notifyDataSetChanged();
                                         }
                                     }
@@ -113,7 +115,8 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent();
-                intent.putExtra("shoppingListId",shoppingLists.get(position).getInt(("shoppingListId")));
+                UserSessionData.getInstance().userCurrentShoppingListId=shoppingLists.get(position).getShoppingListId();
+                UserSessionData.newUserListContent();
                 intent.setClass(context, ShoppingListContentActivity.class);
                 context.startActivity(intent);
             }

@@ -10,6 +10,7 @@
         android:layout_height="70dp"
         android:scaleType="centerCrop"
         android:background="@drawable/categories_color"
-        android:textColor="@color/white"
+        android:textColor="@color/myOrange"
+        android:gravity="center"
         />
 </LinearLayout>

@@ -32,6 +32,7 @@
     <string name="userEmail">מייל</string>
     <string name="userPassword">סיסמה</string>
     <string name="userName">שם</string>
+    <string name="userCity">עיר</string>
     <string name="title_activity_settings">Settings</string>
     <string name="emptyListAlertDialogMsg">יש להוסיף מוצרים לרשימת הקניות </string>
     <string name="emptyListAlertDialogTitle">אופס...</string>
@@ -56,5 +57,9 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Sync Preferences -->
+    <string name="edit_user">ערוך פרטי משתמש</string>
+    <string name="change_account">החלף משתמש</string>
 
 </resources>

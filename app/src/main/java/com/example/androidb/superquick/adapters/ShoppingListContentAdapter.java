@@ -70,9 +70,12 @@ public class ShoppingListContentAdapter extends BaseAdapter {
 
                 ParseQuery<ProductInShoppingList> productToDelete = ParseQuery.getQuery("ProductInShoppingList");
                 productToDelete.getInBackground(productsAmount.get(position).getObjectId(), new GetCallback<ProductInShoppingList>(){
-                    public void done(ProductInShoppingList entity, ParseException e) {
+                    public void done(ProductInShoppingList product, ParseException e) {
                         if (e == null) {
-                                entity.deleteInBackground();
+                            product.deleteInBackground();
+                            //productsAmount.remove(position);
+                            adapter.notifyDataSetChanged();
+
                                 /*if(productsAmount.size()==1){
                                     ParseQuery<ShoppingList> productToDelete = ParseQuery.getQuery("ShoppingList");
                                     productToDelete.whereEqualTo("shoppingListId",productsAmount.get(position).getProductInShoppingList_shoppingListId())
@@ -84,7 +87,6 @@ public class ShoppingListContentAdapter extends BaseAdapter {
                                     });
                                 }*/
                                 //productsAmount.remove(productsAmount.get(position));
-                                adapter.notifyDataSetChanged();
                        }
                         }
                 });

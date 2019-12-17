@@ -38,7 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
-
+555e50
+ 456+*
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  * Use the {@link ProductDialogFragment#newInstance} factory method to

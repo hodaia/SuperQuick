@@ -19,8 +19,8 @@ public class UserSessionData {
     public Users user;
     public List<ProductInShoppingList> userShoppingListContent;
     public ShoppingList userShoppingList;
-    public  boolean erase =false;
-
+    public  boolean erase=false;
+    public int userCityId;
     public int userCurrentShoppingListId;
     public int chosenSuperId;
 
@@ -42,7 +42,7 @@ public class UserSessionData {
         //call the function for the last shoppingListId
         lastShoppingList=ShoppingList.getLastShoppingList();
         userSessionData.userShoppingList=new ShoppingList(lastShoppingList+1,"shoppingList",UserSessionData.getInstance().user.getUserId(), now);
-return lastShoppingList+1;
+        return lastShoppingList+1;
     }
 
    public static void eraseListOrMap(){
@@ -53,23 +53,21 @@ return lastShoppingList+1;
     }
     public static void newUserListContent() {
         userSessionData.userShoppingListContent=new ArrayList<>();
-
     }
     public static void setInstance(Users user) {
         userSessionData = new UserSessionData();
         userSessionData.user = user;
+        userSessionData.userCityId=user.getUser_cityId();
     }
 
     public static void emptyNewShoppingList() {
        userSessionData.userShoppingListContent=null;
     }
 
-
     public static void ChosenSuper(int superId) {
         userSessionData.chosenSuperId=superId;
-
     }
-    public static void createAlertDialog(String message, String title, FragmentActivity getActivity) {
+    public static void createAlertDialog(int message, int title, FragmentActivity getActivity) {
         // Create the object of
         // AlertDialog Builder class
         AlertDialog.Builder builder
@@ -116,7 +114,7 @@ return lastShoppingList+1;
 
 
     }
-    public static void createAlertDialog(String message, int title, String topic, FragmentActivity getActivity) {
+    public static void createAlertDialog(int message, String title, String topic, FragmentActivity getActivity) {
         // Create the object of
         // AlertDialog Builder class
         AlertDialog.Builder builder
