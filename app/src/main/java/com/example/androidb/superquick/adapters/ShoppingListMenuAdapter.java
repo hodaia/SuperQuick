@@ -79,8 +79,8 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                UserSessionData.createAlertDialog(R.string.deleteAlertDialogMsg,
-                        view.getResources().getString(R.string.deleteAlertDialogTitle),
+                UserSessionData.createAlertDialog(view.getResources().getString(R.string.deleteAlertDialogMsg),
+                        R.string.deleteAlertDialogTitle,
                         view.getResources().getString(R.string.deleteShoppingListAlertDialogMsg),((ShoppingListsMenuActivity) context));
                 boolean y=UserSessionData.getErase();
                 if(UserSessionData.getErase()) {
@@ -111,6 +111,7 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
                     });
 
                 }}});
+
         singleShoppingList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

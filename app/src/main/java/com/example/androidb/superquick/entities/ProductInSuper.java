@@ -1,5 +1,6 @@
 package com.example.androidb.superquick.entities;
 
+import com.example.androidb.superquick.General.UserSessionData;
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
 import com.parse.ParseQuery;
@@ -67,8 +68,13 @@ public class ProductInSuper extends ParseObject {
     //productInSuper quries
 
 
-    public static float shoppingListCostInSuper(int superId, int shoppingListId) {
+    public static float shoppingListCostInSuper(int superId) {
         int s=0;
+        int shoppingListId;
+        if (UserSessionData.getInstance().userCurrentShoppingListId == 0)
+            shoppingListId=UserSessionData.getInstance().userShoppingList.getShoppingListId();
+        else
+            shoppingListId=UserSessionData.getInstance().userCurrentShoppingListId;
 
         List<ProductInShoppingList> parsedproductInShoppingList=new ArrayList<>();
         ParseQuery<ProductInShoppingList> productInShoppingListQuery= ParseQuery.getQuery("ProductInShoppingList");

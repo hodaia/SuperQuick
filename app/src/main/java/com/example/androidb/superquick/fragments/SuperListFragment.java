@@ -106,15 +106,9 @@ public class SuperListFragment extends Fragment {
         //call the function
         parsedSupers=Super.getSuperByCityId(UserSessionData.getInstance().userCityId);
 
-        int shoppingListId;
-        if (UserSessionData.getInstance().userCurrentShoppingListId == 0)
-            shoppingListId=UserSessionData.getInstance().userShoppingList.getShoppingListId();
-        else
-        shoppingListId=UserSessionData.getInstance().userCurrentShoppingListId;
-
         //call the adapter for superListView
         superListView = fragmentView.findViewById(R.id.supersListView);
-        superListAdapter = new SuperListAdapter(parsedSupers,getActivity(),shoppingListId);
+        superListAdapter = new SuperListAdapter(parsedSupers,getActivity());
         superListView.setAdapter(superListAdapter);
         return  fragmentView;
     }

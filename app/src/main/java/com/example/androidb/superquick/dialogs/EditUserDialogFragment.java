@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -91,6 +92,7 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
     EditText editTextUserId;
     EditText editTextUserName;
     Spinner citiesSelect;
+    CheckBox isPermanentCity;
     List<City> parsedCities=new ArrayList<>();
 
 
@@ -107,6 +109,7 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
 
         editTextUserId =fragmentView.findViewById(R.id.editTextUserId) ;
         editTextUserName =fragmentView.findViewById(R.id.editTextUserName) ;
+        isPermanentCity=fragmentView.findViewById(R.id.checkBoxIsPermanentCity) ;
 
 //filling the list
         parsedCities=City.getCities();
@@ -129,10 +132,11 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
                 citiesSelect.setSelection(i);
 
             }
+            isPermanentCity.setChecked(user.isPermanentCity());
         }
 
         backBtn=fragmentView.findViewById(R.id.backBtn);
-        saveUser.setOnClickListener(new View.OnClickListener() {
+        backBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -160,6 +164,7 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
                             entity.setUserEmail(editTextUserEmail.getText().toString());
                             entity.setUserPassword(editTextUserPassword.getText().toString());
                             entity.setUser_cityId(UserSessionData.getInstance().userCityId);
+                            entity.setPermanentCity(isPermanentCity.isChecked());
                             // All other fields will remain the same
                             entity.saveInBackground();
                         }

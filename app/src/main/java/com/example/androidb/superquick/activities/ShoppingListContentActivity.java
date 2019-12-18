@@ -10,9 +10,11 @@ import android.widget.ListView;
 import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
 import com.example.androidb.superquick.adapters.ShoppingListContentAdapter;
+import com.example.androidb.superquick.dialogs.CitiesFragmentDialog;
 import com.example.androidb.superquick.entities.Product;
 import com.example.androidb.superquick.entities.ProductInShoppingList;
 import com.example.androidb.superquick.fragments.ShoppingCartFragment;
+import com.example.androidb.superquick.fragments.SuperListFragment;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -22,6 +24,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 public class ShoppingListContentActivity extends AppCompatActivity {
 
     ListView shoppingListContentView;
@@ -49,10 +53,20 @@ public class ShoppingListContentActivity extends AppCompatActivity {
         goToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(ShoppingListContentActivity.this, ShoppingListProcessActivity.class);
-                intent.putExtra("specificFragment", "ShoppingCartFragment");
-                startActivity(intent);
+                if(UserSessionData.getInstance().user.isPermanentCity())
+                {
+                    UserSessionData.getInstance().userCityId=UserSessionData.getInstance().user.getUser_cityId();
+                    Intent intent = new Intent();
+                    intent.setClass(ShoppingListContentActivity.this, ShoppingListProcessActivity.class);
+                    intent.putExtra("specificFragment", "SuperListFragment");
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent();
+                    intent.setClass(ShoppingListContentActivity.this, ShoppingListProcessActivity.class);
+                    intent.putExtra("specificFragment", "CityDialog");
+                    startActivity(intent);
+                }
             }
         });
 
@@ -63,7 +77,6 @@ public class ShoppingListContentActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(ShoppingListContentActivity.this, ShoppingListProcessActivity.class);
                 intent.putExtra("specificFragment", "ShoppingCategoriesFragment");
-                intent.putExtra("shoppingListId", shoppingListId);
                 startActivity(intent);
             }
         });

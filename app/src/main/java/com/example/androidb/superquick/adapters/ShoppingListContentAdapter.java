@@ -70,9 +70,9 @@ public class ShoppingListContentAdapter extends BaseAdapter {
 
                 ParseQuery<ProductInShoppingList> productToDelete = ParseQuery.getQuery("ProductInShoppingList");
                 productToDelete.getInBackground(productsAmount.get(position).getObjectId(), new GetCallback<ProductInShoppingList>(){
-                    public void done(ProductInShoppingList product, ParseException e) {
+                    public void done(ProductInShoppingList productToDelete, ParseException e) {
                         if (e == null) {
-                            product.deleteInBackground();
+                            productToDelete.deleteInBackground();
                             //productsAmount.remove(position);
                             adapter.notifyDataSetChanged();
 

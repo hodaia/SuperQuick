@@ -22,13 +22,10 @@ package com.example.androidb.superquick.adapters;
         public class SuperListAdapter extends BaseAdapter {
         List<Super> supers;
         Context context;
-        int shoppingListId;
 
-
-        public SuperListAdapter(List<Super> supers, Context context,int shoppingListId) {
+        public SuperListAdapter(List<Super> supers, Context context) {
         this.supers = supers;
         this.context = context;
-        this.shoppingListId=shoppingListId;
         }
 
         @Override
@@ -53,7 +50,7 @@ package com.example.androidb.superquick.adapters;
         TextView singleSuper=(TextView)convertView.findViewById(R.id.singleSuper);
         singleSuper.setText(supers.get(position).getSuperName());
         TextView totalPriceTextView=(TextView)convertView.findViewById(R.id.totalPriceTextView);
-        float totalPrice=ProductInSuper.shoppingListCostInSuper(supers.get(position).getSuperId(),shoppingListId);
+        float totalPrice=ProductInSuper.shoppingListCostInSuper(supers.get(position).getSuperId());
         totalPriceTextView.setText(String.valueOf(totalPrice));
         //ProductInSuper.shoppingListCostInSuper(supers.get(position).getSuperId(),shoppingListId);
         singleSuper.setOnClickListener(new View.OnClickListener() {

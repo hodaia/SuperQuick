@@ -56,6 +56,7 @@ public class ProductInShoppingList extends ParseObject {
         ProductInShoppingListQuery.whereEqualTo("productInShoppingList_shoppingListId", shoppingListId);
         ParseQuery<Product> ProductQuery = ParseQuery.getQuery("Product");
         ProductQuery.whereMatchesKeyInQuery("productId", "productInShoppingList_productId", ProductInShoppingListQuery);
+        ProductQuery.orderByDescending("productId");
         try {
             parsedShoppingListContent = ProductQuery.find();
         } catch (Exception e) {
@@ -88,6 +89,7 @@ public class ProductInShoppingList extends ParseObject {
 
         ParseQuery<ProductInShoppingList> queryCurrentShoppingList=ParseQuery.getQuery("ProductInShoppingList");
         queryCurrentShoppingList.whereEqualTo("productInShoppingList_shoppingListId",shoppingListId );
+        queryCurrentShoppingList.orderByDescending("productId");
           try {
             ParsedProducts = queryCurrentShoppingList.find();
         } catch (ParseException e) {

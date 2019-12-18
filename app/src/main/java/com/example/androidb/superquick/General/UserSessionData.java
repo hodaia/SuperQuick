@@ -114,7 +114,7 @@ public class UserSessionData {
 
 
     }
-    public static void createAlertDialog(int message, String title, String topic, FragmentActivity getActivity) {
+    public static void createAlertDialog(String message,int  title, String topic, FragmentActivity getActivity) {
         // Create the object of
         // AlertDialog Builder class
         AlertDialog.Builder builder

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.androidb.superquick.R;
+import com.example.androidb.superquick.dialogs.CitiesFragmentDialog;
 import com.example.androidb.superquick.fragments.ShoppingCartFragment;
 import com.example.androidb.superquick.fragments.ShoppingCategoriesFragment;
 import com.example.androidb.superquick.fragments.SuperListFragment;
@@ -41,6 +42,15 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
             case "ShoppingCartFragment":
                 ShoppingCartFragment shoppingCartFragment=new ShoppingCartFragment();
                 replaceFragment(shoppingCartFragment);
+                break;
+            case "SuperListFragment":
+                SuperListFragment superListFragment=new SuperListFragment();
+                replaceFragment(superListFragment);
+                break;
+            case "CityDialog":
+            FragmentManager ft = getSupportFragmentManager();
+            CitiesFragmentDialog citiesFragmentDialog = new CitiesFragmentDialog();
+            citiesFragmentDialog.show(ft, "i");
                 break;
             case "null":
                     break;

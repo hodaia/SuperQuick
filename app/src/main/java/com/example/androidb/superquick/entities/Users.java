@@ -13,17 +13,19 @@ public class Users extends ParseObject {
     private String userPassword;
     private String userName;
     private int user_cityId;
+    private boolean isPermanentCity;
 
     public Users() {
         //  User userReference = ParseObject.createWithoutData(User.class,);
     }
 
-    public Users(int userId, String userEmail, String userPassword, String userName,int user_cityId) {
+    public Users(int userId, String userEmail, String userPassword, String userName,int user_cityId,boolean isPermanentCity) {
         setUserId(userId);
         setUserEmail(userEmail);
         setUserPassword(userPassword);
         setUserName(userName);
         setUser_cityId(user_cityId);
+        setPermanentCity(isPermanentCity);
     }
 
     public int getUserId() {
@@ -64,6 +66,9 @@ public class Users extends ParseObject {
         put("user_cityId",user_cityId);
     }
 
+    public boolean isPermanentCity() { return getBoolean("isPermanentCity"); }
+
+    public void setPermanentCity(boolean permanentCity) { put("isPermanentCity",permanentCity); }
     //user queries
 
     public static Users getUserByEmail(String email) {

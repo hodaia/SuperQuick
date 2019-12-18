@@ -104,11 +104,6 @@ public class ShoppingCategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_shopping_categories, container, false);
-        int shoppingListId = (int) getActivity().getIntent().getIntExtra("shoppingListId", -1);
-
-        if (UserSessionData.getInstance().userShoppingList == null)
-            UserSessionData.getInstance().userCurrentShoppingListId = shoppingListId;
-
 
         Button saveShoppingListBtn = (Button) fragmentView.findViewById(R.id.saveShoppingListBtn);
         saveShoppingListBtn.setOnClickListener(new View.OnClickListener() {
@@ -142,23 +137,24 @@ public class ShoppingCategoriesFragment extends Fragment {
         goToSupersListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (UserSessionData.getInstance().userShoppingListContent.size() > 0) {
+                if (UserSessionData.getInstance().userShoppingListContent.size() > 0||UserSessionData.getInstance().userCurrentShoppingListId!=0) {
 
+                    if(UserSessionData.getInstance().userShoppingListContent.size() > 0){
                     UserSessionData.getInstance().userShoppingList.saveInBackground();
                     for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
                         p.saveInBackground();
+                    }}
+                    if(UserSessionData.getInstance().user.isPermanentCity())
+                    {
+                        UserSessionData.getInstance().userCityId=UserSessionData.getInstance().user.getUser_cityId();
+                        SuperListFragment superListFragment = new SuperListFragment();
+                        ((ShoppingListProcessActivity) getActivity()).replaceFragment(superListFragment);
                     }
-                    FragmentManager ft = (getActivity()).getSupportFragmentManager();
-                    CitiesFragmentDialog citiesFragmentDialog  = new CitiesFragmentDialog();
-                    citiesFragmentDialog.show(ft, "i");
-
-                    //SuperListFragment superListFragment = new SuperListFragment();
-                    //((ShoppingListProcessActivity) getActivity()).replaceFragment(superListFragment);
-                }
-                else if(UserSessionData.getInstance().userCurrentShoppingListId!=0){
-                    FragmentManager ft = (getActivity()).getSupportFragmentManager();
-                    CitiesFragmentDialog citiesFragmentDialog  = new CitiesFragmentDialog();
-                    citiesFragmentDialog.show(ft, "i");
+                    else {
+                        FragmentManager ft = (getActivity()).getSupportFragmentManager();
+                        CitiesFragmentDialog citiesFragmentDialog = new CitiesFragmentDialog();
+                        citiesFragmentDialog.show(ft, "i");
+                    }
 
                 }
                 else {
