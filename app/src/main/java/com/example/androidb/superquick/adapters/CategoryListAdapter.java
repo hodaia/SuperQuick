@@ -29,12 +29,13 @@ import com.parse.ParseQuery;
 import java.util.List;
 
 public class CategoryListAdapter extends BaseAdapter {
+
     Context context;
     List<Category> categories;
     int shoppintListId;
-
-
     int categoryId;
+
+    //ctor
     public CategoryListAdapter(Context context, List<Category> categories) {
         this.context = context;
         this.categories = categories;

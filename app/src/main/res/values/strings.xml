@@ -64,4 +64,9 @@
     <string name="edit_user">ערוך פרטי משתמש</string>
     <string name="change_account">החלף משתמש</string>
 
+    <string name="change_shopping_list_name">שנה שם</string>
+
+    <string name="saved_map">המפה נשמרה בהצלחה</string>
+
+
 </resources>

@@ -67,6 +67,7 @@ private int super_cityId;
 
         List<Column> parsedColumns=new ArrayList<>();
         ParseQuery<Column> queryColumns = ParseQuery.getQuery("Column");
+        queryColumns.orderByAscending("columnId");
         //queryColumns.whereEqualTo("column_superId", UserSessionData.getInstance().chosenSuperId);
         try {
             parsedColumns = queryColumns.find();

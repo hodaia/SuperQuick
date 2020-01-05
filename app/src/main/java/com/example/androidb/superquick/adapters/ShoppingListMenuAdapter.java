@@ -74,6 +74,7 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
 
         LinearLayout singleShoppingList=(LinearLayout)convertView.findViewById(R.id.singleShoppingList);
 
+        //delete list btn
         ImageButton productDeleteIcon=(ImageButton)convertView.findViewById(R.id.productDeleteIcon);
         productDeleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,12 +86,10 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
                 boolean y=UserSessionData.getErase();
                 if(UserSessionData.getErase()) {
                     //erase shopping list
-                    ParseQuery<ShoppingList> shoppingListToDelete = ParseQuery.getQuery("ShoppingList");
-                    shoppingListToDelete.getInBackground(shoppingLists.get(position).getObjectId(), new GetCallback<ShoppingList>() {
-                        public void done(final ShoppingList entity, ParseException e) {
-                            if (e == null) {
+
                                 ParseQuery<ProductInShoppingList> productToDelete = ParseQuery.getQuery("ProductInShoppingList");
-                                productToDelete.whereEqualTo("productInShoppingList_shoppingListId", shoppingLists.get(position).getShoppingListId());
+                                productToDelete.whereEqualTo("productInShoppingList_shoppingListId",
+                                        shoppingLists.get(position).getShoppingListId());
                                 productToDelete.findInBackground(new FindCallback<ProductInShoppingList>() {
                                     @Override
                                     public void done(List<ProductInShoppingList> list, ParseException e) {
@@ -99,16 +98,12 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
                                             for (ProductInShoppingList productInShoppingList : list) {
                                                 productInShoppingList.deleteInBackground();
                                             }
-                                            entity.deleteInBackground();
-
+                                            shoppingLists.get(position).deleteInBackground();
                                             adapter.notifyDataSetChanged();
                                         }
                                     }
 
                                 });
-                            }
-                        }
-                    });
 
                 }}});
 
@@ -119,6 +114,7 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
                 UserSessionData.getInstance().userCurrentShoppingListId=shoppingLists.get(position).getShoppingListId();
                 UserSessionData.newUserListContent();
                 intent.setClass(context, ShoppingListContentActivity.class);
+                intent.putExtra("shoppingListObjectId", shoppingLists.get(position).getObjectId());
                 context.startActivity(intent);
             }
         });

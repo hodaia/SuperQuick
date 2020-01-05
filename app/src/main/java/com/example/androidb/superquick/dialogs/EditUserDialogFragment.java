@@ -56,8 +56,9 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
     public EditUserDialogFragment() {
         // Required empty public constructor
     }
+
     public EditUserDialogFragment(boolean edit) {
-        this.edit=edit;
+        this.edit = edit;
     }
 
     /**
@@ -77,14 +78,15 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
         }
-
     }
+
     Button backBtn;
     Button saveUser;
     EditText editTextUserEmail;
@@ -93,49 +95,49 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
     EditText editTextUserName;
     Spinner citiesSelect;
     CheckBox isPermanentCity;
-    List<City> parsedCities=new ArrayList<>();
+    List<City> parsedCities = new ArrayList<>();
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View fragmentView= inflater.inflate(R.layout.fragment_edit_user_dialog, container, false);
-        final Users user=UserSessionData.getInstance().user;
-        editTextUserEmail =fragmentView.findViewById(R.id.editTextUserEmail) ;
+        View fragmentView = inflater.inflate(R.layout.fragment_edit_user_dialog, container, false);
+        final Users user = UserSessionData.getInstance().user;
+        editTextUserEmail = fragmentView.findViewById(R.id.editTextUserEmail);
         editTextUserEmail.setText(user.getUserEmail());
-        editTextUserPassword =fragmentView.findViewById(R.id.editTextUserPassword) ;
+        editTextUserPassword = fragmentView.findViewById(R.id.editTextUserPassword);
         editTextUserPassword.setText(user.getUserPassword());
 
-        editTextUserId =fragmentView.findViewById(R.id.editTextUserId) ;
-        editTextUserName =fragmentView.findViewById(R.id.editTextUserName) ;
-        isPermanentCity=fragmentView.findViewById(R.id.checkBoxIsPermanentCity) ;
+        editTextUserId = fragmentView.findViewById(R.id.editTextUserId);
+        editTextUserName = fragmentView.findViewById(R.id.editTextUserName);
+        isPermanentCity = fragmentView.findViewById(R.id.checkBoxIsPermanentCity);
 
-//filling the list
-        parsedCities=City.getCities();
+        //filling the list
+        parsedCities = City.getCities();
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         citiesSelect = (Spinner) fragmentView.findViewById(R.id.citiesSelect);
         citiesSelect.setOnItemSelectedListener(this);
 
         //Creating the ArrayAdapter instance having the bank name list
         //Setting the ArrayAdapter data on the Spinner
-        CityListAdapter cityListAdapter=new CityListAdapter(parsedCities,getActivity());
+        CityListAdapter cityListAdapter = new CityListAdapter(parsedCities, getActivity());
         citiesSelect.setAdapter(cityListAdapter);
 
-        if(edit) {
+        if (edit) {
             editTextUserId.setText(String.valueOf(user.getUserId()));
             editTextUserName.setText(user.getUserName());
             editTextUserPassword.setText(user.getUserPassword());
             editTextUserEmail.setText(user.getUserEmail());
-            for (int i=0;i<parsedCities.size();i++) {
-                if(parsedCities.get(i).getCityId()==user.getUser_cityId());
-                citiesSelect.setSelection(i);
+            for (int i = 0; i < parsedCities.size(); i++) {
+                if (parsedCities.get(i).getCityId() == user.getUser_cityId())
+                    citiesSelect.setSelection(i);
 
             }
             isPermanentCity.setChecked(user.isPermanentCity());
         }
 
-        backBtn=fragmentView.findViewById(R.id.backBtn);
+        backBtn = fragmentView.findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -144,40 +146,53 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
             }
         });
 
-        saveUser=fragmentView.findViewById(R.id.saveUser);
+        saveUser = fragmentView.findViewById(R.id.saveUser);
         saveUser.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if(!edit){
-                user.setUserId(parseInt(editTextUserId.getText().toString()));
-                user.setUserName(editTextUserName.getText().toString());
-                }else{
-                ParseQuery<Users> query = ParseQuery.getQuery("Users");
-                // Retrieve the object by id
-                query.getInBackground(user.getObjectId(), new GetCallback<Users>() {
-                    @Override
-                    public void done(Users entity, com.parse.ParseException e) {
-                        if (e == null) {
-                            entity.setUserId(parseInt(editTextUserId.getText().toString()));
-                            entity.setUserName(editTextUserName.getText().toString());
-                            entity.setUserEmail(editTextUserEmail.getText().toString());
-                            entity.setUserPassword(editTextUserPassword.getText().toString());
-                            entity.setUser_cityId(UserSessionData.getInstance().userCityId);
-                            entity.setPermanentCity(isPermanentCity.isChecked());
-                            // All other fields will remain the same
-                            entity.saveInBackground();
+                if (!edit) {
+                    user.setUserId(parseInt(editTextUserId.getText().toString()));
+                    user.setUserName(editTextUserName.getText().toString());
+                } else {
+                    ParseQuery<Users> query = ParseQuery.getQuery("Users");
+                    query.getInBackground(user.getObjectId(), new GetCallback<Users>() {
+                        @Override
+                        public void done(Users entity, com.parse.ParseException e) {
+                            if (e == null) {
+
+                                //entity.setUserId(parseInt(editTextUserId.getText().toString()));
+                                UserSessionData.getInstance().user.setUserId(parseInt(editTextUserId.getText().toString()));
+
+                                //entity.setUserName(editTextUserName.getText().toString());
+                                UserSessionData.getInstance().user.setUserName(editTextUserName.getText().toString());
+
+                                //entity.setUserEmail(editTextUserEmail.getText().toString());
+                                UserSessionData.getInstance().user.setUserEmail(editTextUserEmail.getText().toString());
+
+                               // entity.setUserPassword(editTextUserPassword.getText().toString());
+                                UserSessionData.getInstance().user.setUserPassword(editTextUserPassword.getText().toString());
+
+                                //entity.setUser_cityId(UserSessionData.getInstance().userCityId);
+                                UserSessionData.getInstance().user.setUser_cityId(UserSessionData.getInstance().userCityId);
+
+                               // entity.setPermanentCity(isPermanentCity.isChecked());
+                                UserSessionData.getInstance().user.setPermanentCity(isPermanentCity.isChecked());
+
+                               // entity.saveInBackground();
+                            }
                         }
-                    }
-                });}
-               dismiss();
+                    });
+                }
+                dismiss();
             }
         });
         return fragmentView;
     }
+
     @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
-        UserSessionData.getInstance().userCityId=parsedCities.get(position).getCityId();
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+        UserSessionData.getInstance().userCityId = parsedCities.get(position).getCityId();
     }
 
     @Override

@@ -8,27 +8,53 @@
     android:orientation="vertical">
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:weightSum="7"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="3dp">
     <ImageView
         android:id="@+id/mapsIcon"
         android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:src="@drawable/map_grey"/>
+        android:src="@drawable/super_grey"
+       />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="40dp"/>
     <ImageView
         android:id="@+id/shekelIcon"
         android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:src="@drawable/super_grey"/>
+     />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="40dp"/>
     <ImageView
         android:id="@+id/superIcon"
         android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:src="@drawable/shekel_grey"/>
+      />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="40dp"/>
     <ImageView
         android:id="@+id/cartIcon"
         android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:src="@drawable/cart"/>
+      />
     
 </LinearLayout>
     <FrameLayout

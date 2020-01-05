@@ -2,7 +2,7 @@
 <resources>
     <string name="goToShoppingListMenu">רשימת קניות</string>
     <string name="goToMapsList">מפות</string>
-    <string name="editList">ערוך רשימה</string>
+    <string name="addProducts">הוסף מוצרים</string>
     <string name="goToShoppingCart">עגלת קניות</string>
     <string name="save">שמור</string>
     <string name="cancel">חזור</string>

@@ -50,7 +50,13 @@ public class ProductInShoppingList extends ParseObject {
 
     //ProductInShoppingListQueries
 
-    public static List<Product> getProductsOfShoppingList(int shoppingListId) {
+    public static List<Product> getProductsOfShoppingList() {
+        int shoppingListId;
+        if(UserSessionData.getInstance().userCurrentShoppingListId==0)
+            shoppingListId=UserSessionData.getInstance().userShoppingList.getShoppingListId();
+        else
+            shoppingListId=UserSessionData.getInstance().userCurrentShoppingListId;
+
         List<Product> parsedShoppingListContent=null;
         ParseQuery<ProductInShoppingList> ProductInShoppingListQuery = ParseQuery.getQuery("ProductInShoppingList");
         ProductInShoppingListQuery.whereEqualTo("productInShoppingList_shoppingListId", shoppingListId);
@@ -97,4 +103,6 @@ public class ProductInShoppingList extends ParseObject {
         }
         return ParsedProducts;
     }
+
+
 }

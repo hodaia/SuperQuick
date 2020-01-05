@@ -42,6 +42,7 @@ private int column_superId;
        List<Row> parsedRows=new ArrayList<>();
        ParseQuery<Row> queryRows = ParseQuery.getQuery("Row");
        queryRows.whereEqualTo("row_columnId", columnId);
+       queryRows.orderByAscending("rowId");
        try {
            parsedRows = queryRows.find();
        } catch (

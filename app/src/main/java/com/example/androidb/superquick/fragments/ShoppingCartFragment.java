@@ -111,6 +111,7 @@ public class ShoppingCartFragment extends Fragment {
 
         cartList= Product.getCurrentCartList();
         productsAmount=ProductInShoppingList.getProductsInShoppingList();
+
         //call the adapter for the cartListView
         cartListView = fragmentView.findViewById(R.id.shoppingListMenuView);
         shoppingListContentAdapter = new ShoppingListContentAdapter(cartList,productsAmount,getActivity());

@@ -126,7 +126,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 afterProductAmount=Integer.parseInt(s.toString());
-
             }
 
             @Override

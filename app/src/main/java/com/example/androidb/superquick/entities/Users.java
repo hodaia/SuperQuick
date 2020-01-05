@@ -69,6 +69,8 @@ public class Users extends ParseObject {
     public boolean isPermanentCity() { return getBoolean("isPermanentCity"); }
 
     public void setPermanentCity(boolean permanentCity) { put("isPermanentCity",permanentCity); }
+
+
     //user queries
 
     public static Users getUserByEmail(String email) {
@@ -78,8 +80,8 @@ public class Users extends ParseObject {
         try {
             //if there is already a userSession
             user = queryUser.getFirst();
-        } catch (ParseException e) {
         }
+        catch (ParseException e) { }
         return user;
     }
 }

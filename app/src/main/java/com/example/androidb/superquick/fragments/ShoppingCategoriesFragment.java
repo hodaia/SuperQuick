@@ -111,27 +111,21 @@ public class ShoppingCategoriesFragment extends Fragment {
             public void onClick(View view) {
                 if (UserSessionData.getInstance().userShoppingListContent.size() > 0) {
 
-
                     Intent intent = new Intent();
                     if (UserSessionData.getInstance().userCurrentShoppingListId == 0){
-                        intent.putExtra("shoppingListId", UserSessionData.getInstance().userShoppingList.getShoppingListId());
                         UserSessionData.getInstance().userShoppingList.saveInBackground();
                         for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
                             p.saveInBackground();
                         }
                     }
-                    else
-                        intent.putExtra("shoppingListId", UserSessionData.getInstance().userCurrentShoppingListId);
+                    // else  shopping list update and add
                     intent.setClass(getActivity(),ShoppingListContentActivity.class);
                     startActivity(intent);
                 } else {
                     UserSessionData.createAlertDialog(R.string.emptyListAlertDialogMsg,R.string.emptyListAlertDialogTitle,getActivity());
-
                 }
             }
         });
-
-
 
         Button goToSupersListBtn = (Button) fragmentView.findViewById(R.id.goToSupersListBtn);
         goToSupersListBtn.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +157,6 @@ public class ShoppingCategoriesFragment extends Fragment {
                 }
             }
         });
-
 
         //else{
         //UserSessionData.emptyNewShoppingList();
