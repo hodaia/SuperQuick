@@ -77,6 +77,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private TextView checkText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,21 +98,23 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                 return false;
             }
         });
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        final Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 //taking the email from the textBox and getting the user from DB
-                AutoCompleteTextView autoCompleteTextViewEmail=findViewById(R.id.email);
-                String email=autoCompleteTextViewEmail.getText().toString();
-                EditText editTextPassword=findViewById(R.id.password);
-                String password=editTextPassword.getText().toString();
+                AutoCompleteTextView autoCompleteTextViewEmail = findViewById(R.id.email);
+                String email = autoCompleteTextViewEmail.getText().toString();
+                EditText editTextPassword = findViewById(R.id.password);
+                checkText = findViewById(R.id.checkPassword);
+                checkText.setText("");
+                String password = editTextPassword.getText().toString();
                 //querry get user by email
-                Users user= Users.getUserByEmail(email);
+                Users user = Users.getUserByEmail(email);
 
-                if(user==null)
-                {
-                    Users newUser=new Users();
+
+                if (user == null) {
+                    Users newUser = new Users();
                     newUser.setUserEmail(email);
                     newUser.setUserPassword(password);
                     UserSessionData.setInstance(newUser);
@@ -121,18 +124,20 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                     EditUserDialogFragment editUserDialogFragment = new EditUserDialogFragment();
                     editUserDialogFragment.show(ft, "i");
                     finish();
-                }
-                else {
+                } else {
                     //saving the current user
-                    UserSessionData.setInstance(user);
-                    Intent intent = new Intent();
-                    intent.setClass(LoginActivity2.this, StartMenuActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if (mPasswordView.getText().toString().equals(user.getUserPassword())) {
+                        UserSessionData.setInstance(user);
+                        Intent intent = new Intent();
+                        intent.setClass(LoginActivity2.this, StartMenuActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        checkText.setText("inCorrect password");
+                        mPasswordView.setText("");
+                    }
                 }
-
-
-
             }
         });
 
@@ -174,7 +179,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
      * Callback received when a permissions request has been completed.
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull  String[] permissions,
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -102,7 +102,7 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
         cartIcon = findViewById(R.id.cartIcon);
 
         if (destFragment instanceof ShoppingCategoriesFragment) {
-            cartIcon.setImageResource(R.drawable.cart);
+            cartIcon.setImageResource(R.drawable.round_storefront_black_36dp);
             superIcon.setImageResource(R.drawable.super_grey);
             shekelIcon.setImageResource(R.drawable.shekel_grey);
             mapsIcon.setImageResource(R.drawable.map_grey);

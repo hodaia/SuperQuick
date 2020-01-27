@@ -68,5 +68,8 @@
 
     <string name="saved_map">המפה נשמרה בהצלחה</string>
 
+    <!-- navbar drawer toggle -->
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
 
 </resources>

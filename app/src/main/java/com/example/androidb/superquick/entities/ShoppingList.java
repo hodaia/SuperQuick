@@ -89,4 +89,16 @@ public class ShoppingList extends ParseObject {
             return 0;
         return  lastShoppingList.getShoppingListId();
     }
+    public static ShoppingList getShoppingListByListId() {
+        ShoppingList parsedShoppingList = new ShoppingList();
+        ParseQuery<ShoppingList> queryShoppingLists = ParseQuery.getQuery("ShoppingList");
+        queryShoppingLists.whereEqualTo("shoppingListId", UserSessionData.getInstance().userCurrentShoppingListId);
+        try {
+            parsedShoppingList = queryShoppingLists.getFirst();
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        return parsedShoppingList;
+    }
 }

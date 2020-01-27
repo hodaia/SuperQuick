@@ -1,18 +1,38 @@
 package com.example.androidb.superquick.fragments;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
+import com.example.androidb.superquick.adapters.CartListAdapter;
+import com.example.androidb.superquick.adapters.CheckableCartListAdapter;
 import com.example.androidb.superquick.entities.Column;
+import com.example.androidb.superquick.entities.Product;
+import com.example.androidb.superquick.entities.ProductInShoppingList;
+import com.example.androidb.superquick.entities.ProductInSuper;
 import com.example.androidb.superquick.entities.Row;
+import com.example.androidb.superquick.entities.ShoppingList;
 import com.example.androidb.superquick.entities.Super;
+import com.example.androidb.superquick.entities.Users;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
@@ -23,7 +43,7 @@ import java.util.List;
  * Use the {@link SuperMapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SuperMapFragment extends Fragment {
+public class SuperMapFragment extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,6 +55,10 @@ public class SuperMapFragment extends Fragment {
     private static final int STATUS_SPACE = 5;
     private static final int STATUS_CASH = 6;
     private static final int STATUS_ENTRANCE = 7;
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle t;
+    private NavigationView nv;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -71,7 +95,15 @@ public class SuperMapFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    Context context;
+    List<Product> shoppingListContent;
+    List<ProductInShoppingList> productsAmount;
+    List<ProductInSuper> productPrice;
+    CheckableCartListAdapter checkableCartListAdapter;
+    ListView shoppingListView;
+    TextView shoppingListNameTextView;
+    TextView shoppingListDateTextView;
+    View fragmentView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,9 +111,61 @@ public class SuperMapFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_super_map, container, false);
         storeLinearLayout = fragmentView.findViewById(R.id.store);
         buildSuperMap();
+
+        //
+        dl = (DrawerLayout)fragmentView.findViewById(R.id.drawer_layout);
+        t = new ActionBarDrawerToggle(getActivity(), dl,R.string.Open, R.string.Close);
+
+        dl.addDrawerListener(t);
+        t.syncState();
+        //dl.setScrimColor(Color.TRANSPARENT);
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        nv = (NavigationView)fragmentView.findViewById(R.id.nav_view);
+         Menu m=nv.getMenu();
+
+        //nv.inflateMenu(R.menu.shopping_list_side_menu);
+        //gets the first item of the menu-- it wasnt possible getting it on a different way
+        /*shoppingListView= (ListView) m.getItem(0);
+        //shoppingListView= (ListView) nv.getMenu().findItem(R.id.shoppingListView);
+        //shoppingListView=nv.getMenu().getItem().getItemId(R.id.shoppingListView);
+
+        // select the lists for the adapter
+        shoppingListContent=ProductInShoppingList.getProductsOfShoppingList();
+        productsAmount=ProductInShoppingList.getProductsInShoppingList();
+        // call the adapter for the cartProductView
+        //shoppingListView = (ListView) nv.getMenu().findItem(R.id.shoppingListView);
+        checkableCartListAdapter = new CheckableCartListAdapter(getActivity(),shoppingListContent,productsAmount);
+        shoppingListView.setAdapter(checkableCartListAdapter);*/
+
+        //
+        String shoppingListName=null;
+        String shoppingListDate=null;
+        if(UserSessionData.getInstance().userCurrentShoppingListId==0){
+            shoppingListName=UserSessionData.getInstance().userShoppingList.getShoppingListName();
+            shoppingListDate=String.valueOf(UserSessionData.getInstance().userShoppingList.getShoppingListDate().getDate()+"/"+
+                    UserSessionData.getInstance().userShoppingList.getShoppingListDate().getMonth())+"/"+
+                    UserSessionData.getInstance().userShoppingList.getShoppingListDate().getYear();
+        }
+        else {
+            ShoppingList sh_l;
+            sh_l= ShoppingList.getShoppingListByListId();
+            shoppingListName = sh_l.getShoppingListName();
+            shoppingListDate=String.valueOf(sh_l.getShoppingListDate().getDate()+"/"+
+                    sh_l.getShoppingListDate().getMonth())+"/"+
+                    sh_l.getShoppingListDate().getYear();
+        }
+
+        View header = nv.getHeaderView(0);
+        shoppingListNameTextView = header.findViewById(R.id.shoppingListNameTextView);
+        shoppingListNameTextView.setText(shoppingListName);
+
+        shoppingListDateTextView = header.findViewById(R.id.shoppingListDateTextView);
+        shoppingListDateTextView.setText(shoppingListDate);
+
         return fragmentView;
     }
-
 
     public void buildSuperMap() {
         int columnSize;
@@ -179,8 +263,8 @@ public class SuperMapFragment extends Fragment {
         return columnViewLL;
     }
 
-
     private void buildAllColumn(int numColumn) {
         storeLinearLayout.setWeightSum(numColumn);
     }
+
 }

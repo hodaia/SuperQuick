@@ -161,25 +161,25 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
                         public void done(Users entity, com.parse.ParseException e) {
                             if (e == null) {
 
-                                //entity.setUserId(parseInt(editTextUserId.getText().toString()));
+                                entity.setUserId(parseInt(editTextUserId.getText().toString()));
                                 UserSessionData.getInstance().user.setUserId(parseInt(editTextUserId.getText().toString()));
 
-                                //entity.setUserName(editTextUserName.getText().toString());
+                                entity.setUserName(editTextUserName.getText().toString());
                                 UserSessionData.getInstance().user.setUserName(editTextUserName.getText().toString());
 
-                                //entity.setUserEmail(editTextUserEmail.getText().toString());
+                                entity.setUserEmail(editTextUserEmail.getText().toString());
                                 UserSessionData.getInstance().user.setUserEmail(editTextUserEmail.getText().toString());
 
-                               // entity.setUserPassword(editTextUserPassword.getText().toString());
+                               entity.setUserPassword(editTextUserPassword.getText().toString());
                                 UserSessionData.getInstance().user.setUserPassword(editTextUserPassword.getText().toString());
 
-                                //entity.setUser_cityId(UserSessionData.getInstance().userCityId);
+                                entity.setUser_cityId(UserSessionData.getInstance().userCityId);
                                 UserSessionData.getInstance().user.setUser_cityId(UserSessionData.getInstance().userCityId);
 
-                               // entity.setPermanentCity(isPermanentCity.isChecked());
+                               entity.setPermanentCity(isPermanentCity.isChecked());
                                 UserSessionData.getInstance().user.setPermanentCity(isPermanentCity.isChecked());
 
-                               // entity.saveInBackground();
+                               entity.saveInBackground();
                             }
                         }
                     });
