@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/singleMap">
+
+    <ImageButton
+        android:id="@+id/mapDeleteIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_delete" />
+
+    <TextView
+        android:id="@+id/map_super_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:text="name"
+        android:layout_marginLeft="50dp"/>
+    <TextView
+        android:id="@+id/map_shopping_lis_name"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:text="shopping list"
+        android:layout_alignParentRight="true"
+        />
+</RelativeLayout>

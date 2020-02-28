@@ -10,10 +10,11 @@ import com.parse.ParseClassName;
 import com.parse.ParseQuery;
 
 @ParseClassName("Super")
-public class Super extends ParseObject {
+public class Super extends ParseObject implements Comparable<Super>{
     private int superId;
     private String superName;
-private int super_cityId;
+    private int super_cityId;
+    public int totalPrice;
 
     public Super() {
 
@@ -48,6 +49,11 @@ private int super_cityId;
     public void setSuper_cityId(int super_cityId) {
         put("super_cityId", super_cityId);
     }
+
+    public void setTotalPrice(int totalPrice) {
+       this.totalPrice=totalPrice;
+    }
+    public int getTotalPrice() { return  this.totalPrice; }
 
     //Super Queries
     public static List<Super> getSupers() {
@@ -92,4 +98,9 @@ private int super_cityId;
         return parsedSupers;
     }
 
+    @Override
+    public int compareTo(Super o) {
+        return this.getTotalPrice()-o.getTotalPrice();
+
+    }
 }

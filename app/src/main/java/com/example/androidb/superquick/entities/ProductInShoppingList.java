@@ -52,10 +52,15 @@ public class ProductInShoppingList extends ParseObject {
 
     public static List<Product> getProductsOfShoppingList() {
         int shoppingListId;
-        if(UserSessionData.getInstance().userCurrentShoppingListId==0)
-            shoppingListId=UserSessionData.getInstance().userShoppingList.getShoppingListId();
+
+        if(UserSessionData.getInstance().mapShoopingListId==0) {
+            if (UserSessionData.getInstance().userCurrentShoppingListId == 0)
+                shoppingListId = UserSessionData.getInstance().userShoppingList.getShoppingListId();
+            else
+                shoppingListId = UserSessionData.getInstance().userCurrentShoppingListId;
+        }
         else
-            shoppingListId=UserSessionData.getInstance().userCurrentShoppingListId;
+            shoppingListId=UserSessionData.getInstance().mapShoopingListId;
 
         List<Product> parsedShoppingListContent=null;
         ParseQuery<ProductInShoppingList> ProductInShoppingListQuery = ParseQuery.getQuery("ProductInShoppingList");
@@ -76,6 +81,7 @@ public class ProductInShoppingList extends ParseObject {
         ProductInShoppingListQuery.whereEqualTo("productInShoppingList_shoppingListId", shoppingListId);
         ParseQuery<Product> ProductQuery = ParseQuery.getQuery("Product");
         ProductQuery.whereMatchesKeyInQuery("productId", "productInShoppingList_productId", ProductInShoppingListQuery);
+
         try {
             parsedShoppingListContent = ProductQuery.find();
         } catch (Exception e) {
@@ -85,23 +91,33 @@ public class ProductInShoppingList extends ParseObject {
 
 
     public static List<ProductInShoppingList> getProductsInShoppingList() {
-        int shoppingListId;
-        if(UserSessionData.getInstance().userCurrentShoppingListId==0)
-            shoppingListId=UserSessionData.getInstance().userShoppingList.getShoppingListId();
-        else
-            shoppingListId=UserSessionData.getInstance().userCurrentShoppingListId;
+        if (UserSessionData.getInstance().getProductInShoppingLists() == null) {
+            int shoppingListId;
+            if(UserSessionData.getInstance().mapShoopingListId==0) {
+                if (UserSessionData.getInstance().userCurrentShoppingListId == 0)
+                    shoppingListId = UserSessionData.getInstance().userShoppingList.getShoppingListId();
+                else
+                    shoppingListId = UserSessionData.getInstance().userCurrentShoppingListId;
+            }
+            else{
+                shoppingListId=UserSessionData.getInstance().mapShoopingListId;
+            }
+            List<ProductInShoppingList> ParsedProducts = null;
 
-        List<ProductInShoppingList> ParsedProducts = null;
-
-        ParseQuery<ProductInShoppingList> queryCurrentShoppingList=ParseQuery.getQuery("ProductInShoppingList");
-        queryCurrentShoppingList.whereEqualTo("productInShoppingList_shoppingListId",shoppingListId );
-        queryCurrentShoppingList.orderByDescending("productId");
-          try {
-            ParsedProducts = queryCurrentShoppingList.find();
-        } catch (ParseException e) {
-            e.printStackTrace();
+            ParseQuery<ProductInShoppingList> queryCurrentShoppingList = ParseQuery.getQuery("ProductInShoppingList");
+            queryCurrentShoppingList.whereEqualTo("productInShoppingList_shoppingListId", shoppingListId);
+            queryCurrentShoppingList.orderByDescending("productId");
+            try {
+                ParsedProducts = queryCurrentShoppingList.find();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            UserSessionData.getInstance().setProductInShoppingLists(ParsedProducts);
+            return ParsedProducts;
         }
-        return ParsedProducts;
+        else {
+            return UserSessionData.getInstance().getProductInShoppingLists();
+        }
     }
 
 

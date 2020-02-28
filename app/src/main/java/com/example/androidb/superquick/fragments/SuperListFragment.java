@@ -23,7 +23,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
 
@@ -32,6 +36,23 @@ import java.util.List;
  * Use the {@link SuperListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+class SortbyTotalPrice implements Comparator<Super> {
+    // Used for sorting in ascending order of
+    // roll number
+    @Override
+    public int compare(Super o1, Super o2) {
+        return o1.getTotalPrice() - o2.getTotalPrice();
+    }
+}
+
+class SortbyABC implements Comparator<Super> {
+    // Used for sorting in ascending order of
+    // roll number
+    @Override
+    public int compare(Super o1, Super o2) {
+        return o1.getSuperName().compareTo(o2.getSuperName());
+    }
+}
 public class SuperListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -110,6 +131,26 @@ public class SuperListFragment extends Fragment {
         superListView = fragmentView.findViewById(R.id.supersListView);
         superListAdapter = new SuperListAdapter(parsedSupers,getActivity());
         superListView.setAdapter(superListAdapter);
+
+        UserSessionData.getInstance().superstotalPrice=parsedSupers;
+
+        Button abc =  (Button) fragmentView.findViewById(R.id.abc);
+        Button price =  (Button) fragmentView.findViewById(R.id.price);
+//
+        abc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort(UserSessionData.getInstance().superstotalPrice, new SortbyABC());
+                superListAdapter.notifyDataSetChanged();
+            }
+        });
+        price.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort(UserSessionData.getInstance().superstotalPrice, new SortbyTotalPrice());
+                superListAdapter.notifyDataSetChanged();
+            }
+        });
         return  fragmentView;
     }
 }

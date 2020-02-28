@@ -38,7 +38,7 @@
     <ListView
         android:id="@+id/shoppingListMenuView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         >
     </ListView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

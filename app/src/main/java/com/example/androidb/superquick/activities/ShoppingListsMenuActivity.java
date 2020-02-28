@@ -64,6 +64,7 @@ public class ShoppingListsMenuActivity extends AppCompatActivity {
         shoppingListMenuView.setAdapter(shoppingListMenuAdapter);
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();

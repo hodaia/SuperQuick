@@ -123,7 +123,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                     FragmentManager ft = getSupportFragmentManager();
                     EditUserDialogFragment editUserDialogFragment = new EditUserDialogFragment();
                     editUserDialogFragment.show(ft, "i");
-                    finish();
+                    //finish();
                 } else {
                     //saving the current user
                     if (mPasswordView.getText().toString().equals(user.getUserPassword())) {

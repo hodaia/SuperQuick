@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.androidb.superquick.General.UserSessionData;
@@ -72,7 +73,7 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
                 shoppingLists.get(position).getCreatedAt().getMonth())+"/"+
                 shoppingLists.get(position).getCreatedAt().getYear());
 
-        LinearLayout singleShoppingList=(LinearLayout)convertView.findViewById(R.id.singleShoppingList);
+        RelativeLayout singleShoppingList=(RelativeLayout)convertView.findViewById(R.id.singleShoppingList);
 
         //delete list btn
         ImageButton productDeleteIcon=(ImageButton)convertView.findViewById(R.id.productDeleteIcon);
@@ -107,7 +108,7 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
 
                 }}});
 
-        singleShoppingList.setOnClickListener(new View.OnClickListener() {
+                singleShoppingList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent();

@@ -41,9 +41,11 @@
 
     <string name="deleteAlertDialogTitle">אזהרה!</string>
     <string name="deleteAlertDialogMsg"> עומדת להמחק, האם להמשיך?</string>
+    <string name="deleteNewShoppingListAlertDialogMsg"> המוצרים שנוספו עלולים להמחק, האם להמשיך?</string>
 
     <string name="deleteMapsAlertDialogMsg">המפה </string>
     <string name="deleteShoppingListAlertDialogMsg">רשימת הקניות </string>
+
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

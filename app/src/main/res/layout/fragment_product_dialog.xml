@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     tools:context=".dialogs.ProductDialogFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -10,7 +10,10 @@
     <ExpandableListView
         android:id="@+id/categoriesProductsExpandableListView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></ExpandableListView>
+        android:layout_height="fill_parent"
+
+        android:isScrollContainer="true"
+></ExpandableListView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

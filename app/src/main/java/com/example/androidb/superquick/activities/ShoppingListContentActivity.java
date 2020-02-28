@@ -40,7 +40,7 @@ import androidx.fragment.app.FragmentManager;
 
 public class ShoppingListContentActivity extends AppCompatActivity {
 
-    ListView shoppingListContentView;
+   public ListView shoppingListContentView;
     List<Product> parsedShoppingListContent;
     List<ProductInShoppingList> productsAmount;
     ShoppingListContentAdapter shoppingListContentAdapter;
@@ -111,24 +111,32 @@ public class ShoppingListContentActivity extends AppCompatActivity {
         inflater.inflate(R.menu.change_shopping_list_name, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+    ParseQuery<ShoppingList> queryShoppingListName;
+    String shoppingListObjectId;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.edit_name:
+                ShoppingList shoppingList=null;
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 final EditText edittext = new EditText(this);
-                alert.setMessage("write a new name");
-                alert.setTitle("Shopping list");
+                 shoppingListObjectId=getIntent().getStringExtra("shoppingListObjectId");
+                 queryShoppingListName = ParseQuery.getQuery("ShoppingList");
+                try{
+                   shoppingList=queryShoppingListName.getFirst();}
+                catch (Exception e){}
 
+                edittext.setHint(shoppingList.getShoppingListName());
+                alert.setMessage("שם הרשימה החדש");
+                alert.setTitle("רשימת קניות");
                 alert.setView(edittext);
 
                 alert.setPositiveButton("שמור", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //What ever you want to do with the value
                          final Editable YouEditTextValue = edittext.getText();
-                         String shoppingListObjectId=getIntent().getStringExtra("shoppingListObjectId");
-                        ParseQuery<ShoppingList> queryShoppingListName = ParseQuery.getQuery("ShoppingList");
+
+
 
                         queryShoppingListName.getInBackground(shoppingListObjectId, new GetCallback<ShoppingList>() {
                             @Override
@@ -154,6 +162,11 @@ public class ShoppingListContentActivity extends AppCompatActivity {
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+    public void removeItem(int position){
+        productsAmount.remove(position);
+        shoppingListContentView.setAdapter(null);
+        shoppingListContentAdapter.notifyDataSetChanged();
     }
 
 }

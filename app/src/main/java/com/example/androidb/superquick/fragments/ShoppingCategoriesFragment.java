@@ -138,6 +138,9 @@ public class ShoppingCategoriesFragment extends Fragment {
                     for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
                         p.saveInBackground();
                     }}
+                    else{
+
+                    }
                     if(UserSessionData.getInstance().user.isPermanentCity())
                     {
                         UserSessionData.getInstance().userCityId=UserSessionData.getInstance().user.getUser_cityId();

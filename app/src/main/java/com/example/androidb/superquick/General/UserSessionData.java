@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.example.androidb.superquick.entities.ProductInShoppingList;
 import com.example.androidb.superquick.entities.ShoppingList;
+import com.example.androidb.superquick.entities.Super;
 import com.example.androidb.superquick.entities.Users;
 
 import java.util.ArrayList;
@@ -15,20 +16,37 @@ import java.util.List;
 import java.util.Locale;
 
 public class UserSessionData {
+    public  List<Super> superstotalPrice;
     private static UserSessionData userSessionData=null;
     public Users user;
     public List<ProductInShoppingList> userShoppingListContent;
+    private List<ProductInShoppingList> productInShoppingLists;
     public ShoppingList userShoppingList;
     public  boolean erase=false;
+    // not asking the city and showing relevant supers
     public int userCityId;
     public int userCurrentShoppingListId;
+
+    //for
     public int chosenSuperId;
+
+    //for saved maps
+    public int mapShoopingListId;
 
     public static UserSessionData getInstance() {
         if (userSessionData == null) {
             userSessionData = new UserSessionData();
         }
         return userSessionData;
+
+    }
+    public static void setTotalPrice(int position,int totalPrice) {
+        userSessionData.superstotalPrice.get(position).totalPrice=totalPrice;
+
+    }
+    public static int getTotalPrice(int position) {
+       return userSessionData.superstotalPrice.get(position).totalPrice;
+
     }
     public static boolean instanceExist() {
         if (userSessionData == null) {
@@ -173,5 +191,13 @@ public class UserSessionData {
 
         // Show the Alert Dialog box
         alertDialog.show();
+    }
+
+    public List<ProductInShoppingList> getProductInShoppingLists() {
+        return productInShoppingLists;
+    }
+
+    public void setProductInShoppingLists(List<ProductInShoppingList> productInShoppingLists) {
+        this.productInShoppingLists = productInShoppingLists;
     }
 }

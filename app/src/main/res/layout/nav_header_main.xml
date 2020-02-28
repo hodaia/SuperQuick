@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_header"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:background="@color/myGrey"
+    android:layout_height="130dp"
+    android:background="@color/myGreen"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -14,20 +14,14 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     tools:ignore="ExtraText">
-
-    <ImageView
-        android:id="@+id/nav_header_imageView"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@mipmap/ic_launcher" />
-
     <TextView
         android:id="@+id/shoppingListNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:text="רשימת קניות"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        />
 
     <TextView
         android:id="@+id/shoppingListDateTextView"
@@ -35,5 +29,5 @@
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:text="23/33/3333"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        />
 </LinearLayout>

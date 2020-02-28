@@ -185,6 +185,10 @@ public class EditUserDialogFragment extends DialogFragment implements AdapterVie
                     });
                 }
                 dismiss();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), StartMenuActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
         return fragmentView;

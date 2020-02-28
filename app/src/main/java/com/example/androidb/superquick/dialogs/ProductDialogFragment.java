@@ -119,7 +119,7 @@ public class ProductDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View fragmentView= inflater.inflate(R.layout.fragment_product_dialog, container, false);
+        final View fragmentView= inflater.inflate(R.layout.fragment_product_dialog, container, false);
 
         //שליפת רשימת התת-קטדגוריות עפ"י הקטגוריה שנלחצה
 
@@ -137,13 +137,17 @@ public class ProductDialogFragment extends DialogFragment {
         //call the second function to get all the products of the current subCategories
         ParsedProducts=Product.getProductsBySubCategory(ParsedSubCategories);
 
+//        final Runnable r = new Runnable() {
+//            public void run() {
 
         //expandableList קריאה לאדפטר של
         categoriesProductsView = fragmentView.findViewById(R.id.categoriesProductsExpandableListView);
         ExpandableListAdapter expandableListAdapter= new ExpandableListAdapter(getActivity(),ParsedSubCategories,ParsedProducts);
         categoriesProductsView.setAdapter(expandableListAdapter);
 
-
+            //}
+        //};
+        //new Thread(r).start();
         return fragmentView;   }
 
     // TODO: Rename method, update argument and hook method into UI event
