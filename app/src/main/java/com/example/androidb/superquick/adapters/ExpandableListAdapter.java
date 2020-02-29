@@ -131,7 +131,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final View finalConvertView = convertView;
+        //final View finalConvertView = convertView;
 
         holder.productAmountEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -143,46 +143,44 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 //                afterProductAmount=Integer.parseInt(s.toString());
             }
+
             boolean flag = false;
 
             @Override
             public void afterTextChanged(Editable s) {
-                for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
-                    if (p.productInShoppingList_productId == expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductId()) {
-                        p.setProductInShoppingListAmount(Integer.parseInt(s.toString()));
+                for (ProductInShoppingList p : UserSessionData.getInstance().getProductInShoppingLists()) {
+                    if (p.getProductInShoppingList_productId() == expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductId()) {
+                        int amount = 0;
+                        if (!(s.toString().equals("")))
+                            amount=Integer.parseInt(s.toString());
+                        p.setProductInShoppingListAmount(amount);
                         p.saveInBackground();
-                        holder.productAmountEditText.setText(Integer.parseInt(s.toString()));
+                     //   holder.productAmountEditText.setText(s);
                         flag = true;
                     }
-                    if (!flag) {
-                        int shoppingListId;
-                        if (UserSessionData.getInstance().userCurrentShoppingListId == 0)
-                            shoppingListId = UserSessionData.getInstance().userShoppingList.getShoppingListId();
-                        else
-                            shoppingListId = UserSessionData.getInstance().userCurrentShoppingListId;
+                }
+                if (!flag) {
+                    int shoppingListId;
+                    if (UserSessionData.getInstance().userCurrentShoppingListId == 0)
+                        shoppingListId = UserSessionData.getInstance().userShoppingList.getShoppingListId();
+                    else
+                        shoppingListId = UserSessionData.getInstance().userCurrentShoppingListId;
+                    int amount = 0;
+                    if (!(s.toString().equals("")))
+                        amount=Integer.parseInt(s.toString());
+                    UserSessionData.getInstance().userShoppingListContent.add(new ProductInShoppingList(shoppingListId,
+                            expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductId(), amount));
 
-                        UserSessionData.getInstance().userShoppingListContent.add(new ProductInShoppingList(shoppingListId,
-                                expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductId(), Integer.parseInt(s.toString())));
-                    }
-
-                    ;
                 }
             }
         });
 
-
-        holder.expandedListTextView.setText(expandableList.get(parentList.get(groupPosition)).
-
-                get(childPosition).
-
-                getProductDescription());
-        for (
-                ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
-            if (p.productInShoppingList_productId == expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductId()) {
-                holder.productAmountEditText.setText(p.getProductInShoppingListAmount());
-                holder.expandedListTextView.setText(expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductDescription());
+        holder.expandedListTextView.setText(expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductDescription());
+        for (ProductInShoppingList p : UserSessionData.getInstance().getProductInShoppingLists()) {
+            if (p.getProductInShoppingList_productId() == expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductId()) {
+                holder.productAmountEditText.setText(String.valueOf(p.getProductInShoppingListAmount()));
+                //holder.expandedListTextView.setText(expandableList.get(parentList.get(groupPosition)).get(childPosition).getProductDescription());
             }
-
         }
         return convertView;
     }

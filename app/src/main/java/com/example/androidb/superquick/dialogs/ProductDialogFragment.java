@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
 import com.example.androidb.superquick.activities.ShoppingListProcessActivity;
 import com.example.androidb.superquick.adapters.ExpandableListAdapter;
@@ -133,9 +134,12 @@ public class ProductDialogFragment extends DialogFragment {
 
         //call the first function to get all the subCategories of the current Category
         ParsedSubCategories=SubCategory.getSubCategory(categoryId);
+        //HashMap<Integer, HashMap<SubCategory,List<Product>>> allProductsByCategory;
+        //allProductsByCategory= UserSessionData.getInstance().getAllProductsByCategory();
 
         //call the second function to get all the products of the current subCategories
         ParsedProducts=Product.getProductsBySubCategory(ParsedSubCategories);
+        //ParsedProducts=allProductsByCategory.get(categoryId);
 
 //        final Runnable r = new Runnable() {
 //            public void run() {

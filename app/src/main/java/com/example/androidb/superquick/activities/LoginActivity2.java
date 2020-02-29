@@ -31,12 +31,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
 import com.example.androidb.superquick.dialogs.EditUserDialogFragment;
 import com.example.androidb.superquick.dialogs.ProductDialogFragment;
+import com.example.androidb.superquick.entities.Category;
+import com.example.androidb.superquick.entities.Product;
+import com.example.androidb.superquick.entities.SubCategory;
 import com.example.androidb.superquick.entities.User;
 import com.example.androidb.superquick.entities.Users;
 import com.google.android.material.snackbar.Snackbar;
@@ -78,6 +82,10 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
     private View mProgressView;
     private View mLoginFormView;
     private TextView checkText;
+    List<SubCategory> ParsedSubCategories;
+    HashMap<SubCategory, List<Product>> ParsedProducts;
+    HashMap<Integer, HashMap<SubCategory, List<Product>>> ParsedAllProducts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +120,6 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                 //querry get user by email
                 Users user = Users.getUserByEmail(email);
 
-
                 if (user == null) {
                     Users newUser = new Users();
                     newUser.setUserEmail(email);
@@ -132,8 +139,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                         intent.setClass(LoginActivity2.this, StartMenuActivity.class);
                         startActivity(intent);
                         finish();
-                    }
-                    else {
+                    } else {
                         checkText.setText("inCorrect password");
                         mPasswordView.setText("");
                     }
@@ -143,7 +149,13 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        /////if(UserSessionData.getInstance().getAllProductsByCategory()==null){
+        /////ParsedAllProducts=Category.getAllProductsByCategory();
+        /*UserSessionData.getInstance().setAllProductsByCategory(ParsedAllProducts); }
+        ParsedSubCategories=SubCategory.getSubCategory(categoryId);
+        ParsedProducts=Product.getProductsBySubCategory(ParsedSubCategories);*/
     }
+
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {

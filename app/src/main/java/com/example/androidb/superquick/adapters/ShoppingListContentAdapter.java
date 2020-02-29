@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
+import com.example.androidb.superquick.activities.ShoppingListContentActivity;
+import com.example.androidb.superquick.activities.ShoppingListsMenuActivity;
 import com.example.androidb.superquick.entities.Category;
 import com.example.androidb.superquick.entities.Product;
 import com.example.androidb.superquick.entities.ProductInShoppingList;
@@ -96,7 +98,10 @@ public class ShoppingListContentAdapter extends BaseAdapter {
         deleteIcon.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View view) {
-                                                          productsAmount.get(position).deleteInBackground();
+                                              productsAmount.get(position).deleteInBackground();
+                                              //shoppingListContent.get(position).
+                                              ((ShoppingListContentActivity) context).finish();
+                                              ((ShoppingListContentActivity) context).startActivity(((ShoppingListContentActivity) context).getIntent());
                                                           adapter.notifyDataSetChanged();
                                              //   context.removeItem(position);
                                                 /*if(productsAmount.size()==1){
@@ -106,7 +111,7 @@ public class ShoppingListContentAdapter extends BaseAdapter {
                                         public void done(ShoppingList entity, ParseException e) {
                                             if (e == null) {
                                             }
-                                        }
+                                        }sq
                                     });
                                 }*/
                                                           //productsAmount.remove(productsAmount.get(position));

@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/totalPriceTextView"
         android:layout_alignParentLeft="true"
+        android:textSize="25dp"
         />
     <TextView
         android:id="@+id/singleSuper"

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
+import com.example.androidb.superquick.activities.MapsListMenuActivity;
 import com.example.androidb.superquick.activities.ShoppingListContentActivity;
 import com.example.androidb.superquick.activities.ShoppingListProcessActivity;
 import com.example.androidb.superquick.activities.ShoppingListsMenuActivity;
@@ -61,7 +62,7 @@ public class MapsMenuAdapter extends BaseAdapter {
         TextView map_shopping_lis_name = (TextView) convertView.findViewById(R.id.map_shopping_lis_name);
         map_shopping_lis_name.setText(String.valueOf(maps.get(position).getMap_shoppingListName()));
 
-        RelativeLayout singleMap=(RelativeLayout)convertView.findViewById(R.id.singleMap);
+        RelativeLayout singleMap = (RelativeLayout) convertView.findViewById(R.id.singleMap);
 
         //delete list btn
         ImageButton mapDeleteIcon = (ImageButton) convertView.findViewById(R.id.mapDeleteIcon);
@@ -69,29 +70,31 @@ public class MapsMenuAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                UserSessionData.createAlertDialog(view.getResources().getString(R.string.deleteAlertDialogMsg),
+                boolean erase = UserSessionData.createAlertDialog(view.getResources().getString(R.string.deleteAlertDialogMsg),
                         R.string.deleteAlertDialogTitle,
-                        view.getResources().getString(R.string.deleteMapsAlertDialogMsg), ((ShoppingListsMenuActivity) context));
+                        view.getResources().getString(R.string.deleteMapsAlertDialogMsg), ((MapsListMenuActivity) context));
                 //boolean y = UserSessionData.getErase();
                 //if (UserSessionData.getErase()) {
                 //erase shopping list
 
-                maps.get(position).deleteInBackground();
-                adapter.notifyDataSetChanged();
-                //}
-            }});
+                    maps.get(position).deleteInBackground();
+                    adapter.notifyDataSetChanged();
 
-                singleMap.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent();
-                        //UserSessionData.getInstance().userCurrentShoppingListId = shoppingLists.get(position).getShoppingListId();
-                        UserSessionData.getInstance().mapShoopingListId=maps.get(position).getMap_shoppingListId();
-                        intent.setClass(context, ShoppingListProcessActivity.class);
-                        intent.putExtra("specificFragment", "SuperMapFragment");
-                        context.startActivity(intent);
-                    }
-                });
-                return convertView;
+                //}
             }
-        }
+        });
+
+        singleMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                //UserSessionData.getInstance().userCurrentShoppingListId = shoppingLists.get(position).getShoppingListId();
+                UserSessionData.getInstance().mapShoopingListId = maps.get(position).getMap_shoppingListId();
+                intent.setClass(context, ShoppingListProcessActivity.class);
+                intent.putExtra("specificFragment", "SuperMapFragment");
+                context.startActivity(intent);
+            }
+        });
+        return convertView;
+    }
+}

@@ -2,6 +2,7 @@ package com.example.androidb.superquick.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,6 +24,7 @@ public class Category extends ParseObject {
         setCategoryId(categoryId);
         setCategoryName(categoryName);
     }
+
     public interface CategoryString{
         public String categoryId = "categoryId";
         public String categoryName = "categoryName";
@@ -43,7 +45,21 @@ public class Category extends ParseObject {
         put(CategoryString.categoryName, categoryName);
     }
 
+    public static HashMap<Integer, HashMap<SubCategory, List<Product>>> getAllProductsByCategory() {
+        List<Category> ParsedCategories=new ArrayList<>();
+        List<SubCategory> parsedSubCategories= new ArrayList<>();
+        HashMap<SubCategory,List<Product>> parsedProducts= new HashMap<>();
+        HashMap<Integer, HashMap<SubCategory, List<Product>>> allProductsByCategory=new HashMap<>();
 
+        ParsedCategories=Category.getCategories();
+        for (Category c:ParsedCategories) {
+            parsedSubCategories=SubCategory.getSubCategory(c.getCategoryId());
+            parsedProducts=Product.getProductsBySubCategory(parsedSubCategories);
+
+            allProductsByCategory.put(c.categoryId,parsedProducts);
+        }
+        return allProductsByCategory;
+    }
     //Category Queries
     public static List<Category> getCategories() {
         List<Category> ParsedCategories=new ArrayList<>();

@@ -118,14 +118,15 @@ public class SuperMapFragment extends Fragment {
     ListView shoppingListView;
     TextView shoppingListNameTextView;
     TextView shoppingListDateTextView;
-   static int column_number = 1;
-   static int row_number = 1;
+
 
     View fragmentView;
     HashMap<String, String> hashMap;
     ImageView iconView;
     RelativeLayout relativeLayout;
     static int rowSize;
+    static int column_number = 1;
+    static int row_number = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,6 +134,8 @@ public class SuperMapFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_super_map, container, false);
 
+        column_number = 1;
+        row_number = 1;
         hashMap = ProductInSuper.cartProductLocationInSuper();
         relativeLayout = new RelativeLayout(getActivity());
 
@@ -172,7 +175,7 @@ public class SuperMapFragment extends Fragment {
         checkableCartListAdapter = new CheckableCartListAdapter(getActivity(), shoppingListContent, productsAmount);
         shoppingListView.setAdapter(checkableCartListAdapter);
 
-       // HashMap<String, Product> map = new HashMap<String, Product>();
+        // HashMap<String, Product> map = new HashMap<String, Product>();
 
     }
 
@@ -180,12 +183,12 @@ public class SuperMapFragment extends Fragment {
         String shoppingListName = null;
         String shoppingListDate = "";
         if (UserSessionData.getInstance().userCurrentShoppingListId == 0) {
-            if(UserSessionData.getInstance().mapShoopingListId==0){
-            shoppingListName = UserSessionData.getInstance().userShoppingList.getShoppingListName();
-            shoppingListDate = String.valueOf(UserSessionData.getInstance().userShoppingList.getShoppingListDate().getDate() + "/" +
-                    UserSessionData.getInstance().userShoppingList.getShoppingListDate().getMonth()) + "/" +
-                    UserSessionData.getInstance().userShoppingList.getShoppingListDate().getYear();}
-            else{
+            if (UserSessionData.getInstance().mapShoopingListId == 0) {
+                shoppingListName = UserSessionData.getInstance().userShoppingList.getShoppingListName();
+                shoppingListDate = String.valueOf(UserSessionData.getInstance().userShoppingList.getShoppingListDate().getDate() + "/" +
+                        UserSessionData.getInstance().userShoppingList.getShoppingListDate().getMonth()) + "/" +
+                        UserSessionData.getInstance().userShoppingList.getShoppingListDate().getYear();
+            } else {
                 shoppingListName = String.valueOf(UserSessionData.getInstance().mapShoopingListId);
             }
         } else {
@@ -198,21 +201,13 @@ public class SuperMapFragment extends Fragment {
         }
 
         View header = nv.getHeaderView(0);
+        header.setMinimumHeight(View.AUTOFILL_TYPE_LIST);
         shoppingListNameTextView = header.findViewById(R.id.shoppingListNameTextView);
         shoppingListNameTextView.setText(shoppingListName);
 
         shoppingListDateTextView = header.findViewById(R.id.shoppingListDateTextView);
         shoppingListDateTextView.setText(shoppingListDate);
 
-        /*shoppingListView=header.findViewById(R.id.shoppingListView);
-
-        // select the lists for the adapter
-        shoppingListContent=ProductInShoppingList.getProductsOfShoppingList();
-        productsAmount=ProductInShoppingList.getProductsInShoppingList();
-        // call the adapter for the cartProductView
-        //shoppingListView = (ListView) nv.getMenu().findItem(R.id.shoppingListView);
-        checkableCartListAdapter = new CheckableCartListAdapter(getActivity(),shoppingListContent,productsAmount);
-        shoppingListView.setAdapter(checkableCartListAdapter);*/
     }
 
     public void buildSuperMap() {
@@ -228,7 +223,7 @@ public class SuperMapFragment extends Fragment {
 
     private void buildColumn(Column column) {
         List<Row> rowList = Column.getColumnRows(column.getColumnId());
-         rowSize = rowList.size();
+        rowSize = rowList.size();
         LinearLayout columnViewLL = buildColumnView(rowSize);
 
         for (Row row : rowList) {
@@ -291,6 +286,7 @@ public class SuperMapFragment extends Fragment {
         View rowView = LayoutInflater.from(getActivity()).inflate(R.layout.cash, null, false);
         build(rowView, columnViewLL, row);
     }
+
     private void build(View rowView, LinearLayout columnViewLL, Row row) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
         layoutParams.weight = 1;
@@ -306,8 +302,8 @@ public class SuperMapFragment extends Fragment {
 
             final ImageView icon = rowView.findViewById(R.id.ic_location);
             icon.setVisibility(View.VISIBLE);
-            icon.setContentDescription(hashMap.get(column_number+" "+row_number));
-            icon.setTooltipText(hashMap.get(column_number+" "+row_number));
+            icon.setContentDescription(hashMap.get(column_number + " " + row_number));
+            icon.setTooltipText(hashMap.get(column_number + " " + row_number));
 
         }
         setVisibility(rowView, row);

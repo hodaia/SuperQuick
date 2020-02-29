@@ -22,6 +22,7 @@
         android:scaleType="centerCrop"
         android:text="product"
         android:layout_alignParentRight="true"
+        android:textSize="18dp"
 
         />
     <!--<NumberPicker

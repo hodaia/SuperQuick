@@ -42,7 +42,7 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
     public ShoppingListMenuAdapter(List<ShoppingList> shoppingLists, Context context) {
         this.shoppingLists = shoppingLists;
         this.context = context;
-        this.adapter=this;
+        this.adapter = this;
     }
 
     @Override
@@ -62,57 +62,65 @@ public class ShoppingListMenuAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        LayoutInflater layoutInflater=LayoutInflater.from(context);
-        convertView=layoutInflater.inflate(R.layout.single_shopping_list,null);
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        convertView = layoutInflater.inflate(R.layout.single_shopping_list, null);
 
-        TextView singleShoppingListName=(TextView)convertView.findViewById(R.id.singleShoppingListName);
+        TextView singleShoppingListName = (TextView) convertView.findViewById(R.id.singleShoppingListName);
         singleShoppingListName.setText(shoppingLists.get(position).getShoppingListName());
 
-        TextView singleShoppingListDate=(TextView)convertView.findViewById(R.id.singleShoppingListDate);
-        singleShoppingListDate.setText(String.valueOf(shoppingLists.get(position).getCreatedAt().getDate()+"/"+
-                shoppingLists.get(position).getCreatedAt().getMonth())+"/"+
+        TextView singleShoppingListDate = (TextView) convertView.findViewById(R.id.singleShoppingListDate);
+        singleShoppingListDate.setText(String.valueOf(shoppingLists.get(position).getCreatedAt().getDate() + "/" +
+                shoppingLists.get(position).getCreatedAt().getMonth()) + "/" +
                 shoppingLists.get(position).getCreatedAt().getYear());
 
-        RelativeLayout singleShoppingList=(RelativeLayout)convertView.findViewById(R.id.singleShoppingList);
+        RelativeLayout singleShoppingList = (RelativeLayout) convertView.findViewById(R.id.singleShoppingList);
 
         //delete list btn
-        ImageButton productDeleteIcon=(ImageButton)convertView.findViewById(R.id.productDeleteIcon);
+        ImageButton productDeleteIcon = (ImageButton) convertView.findViewById(R.id.productDeleteIcon);
         productDeleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                UserSessionData.createAlertDialog(view.getResources().getString(R.string.deleteAlertDialogMsg),
+               boolean erase= UserSessionData.createAlertDialog(view.getResources().getString(R.string.deleteAlertDialogMsg),
                         R.string.deleteAlertDialogTitle,
-                        view.getResources().getString(R.string.deleteShoppingListAlertDialogMsg),((ShoppingListsMenuActivity) context));
-                boolean y=UserSessionData.getErase();
-                if(UserSessionData.getErase()) {
+                        view.getResources().getString(R.string.deleteShoppingListAlertDialogMsg), ((ShoppingListsMenuActivity) context));
+//               if (erase==true) {
                     //erase shopping list
+                    ParseQuery<ProductInShoppingList> productToDelete = ParseQuery.getQuery("ProductInShoppingList");
+                    productToDelete.whereEqualTo("productInShoppingList_shoppingListId",
+                            shoppingLists.get(position).getShoppingListId());
+                    productToDelete.findInBackground(new FindCallback<ProductInShoppingList>() {
+                        @Override
+                        public void done(List<ProductInShoppingList> list, ParseException e) {
 
-                                ParseQuery<ProductInShoppingList> productToDelete = ParseQuery.getQuery("ProductInShoppingList");
-                                productToDelete.whereEqualTo("productInShoppingList_shoppingListId",
-                                        shoppingLists.get(position).getShoppingListId());
-                                productToDelete.findInBackground(new FindCallback<ProductInShoppingList>() {
-                                    @Override
-                                    public void done(List<ProductInShoppingList> list, ParseException e) {
+                            if (e == null) {
+                                for (ProductInShoppingList productInShoppingList : list) {
+                                    productInShoppingList.deleteInBackground();
+                                }
 
-                                        if (e == null) {
-                                            for (ProductInShoppingList productInShoppingList : list) {
-                                                productInShoppingList.deleteInBackground();
-                                            }
-                                            shoppingLists.get(position).deleteInBackground();
-                                            adapter.notifyDataSetChanged();
-                                        }
-                                    }
+                            }
 
-                                });
+                        }
 
-                }}});
+                    });
+                   shoppingLists.get(position).deleteInBackground();
+                   adapter.notifyDataSetChanged();
 
-                singleShoppingList.setOnClickListener(new View.OnClickListener() {
+
+//                   if(UserSessionData.getErase()==false){
+//                   ((ShoppingListsMenuActivity) context).finish();
+//                   ((ShoppingListsMenuActivity) context).startActivity(((ShoppingListsMenuActivity) context).getIntent());}
+                UserSessionData.getInstance().erase=false;
+
+              // }
+         }
+        });
+
+        singleShoppingList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent();
-                UserSessionData.getInstance().userCurrentShoppingListId=shoppingLists.get(position).getShoppingListId();
+                Intent intent = new Intent();
+                UserSessionData.getInstance().userCurrentShoppingListId = shoppingLists.get(position).getShoppingListId();
                 UserSessionData.newUserListContent();
                 intent.setClass(context, ShoppingListContentActivity.class);
                 intent.putExtra("shoppingListObjectId", shoppingLists.get(position).getObjectId());

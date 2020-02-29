@@ -16,26 +16,19 @@ public class Map extends ParseObject {
     private int map_superId;
     private String map_superName;
     private int map_shoppingListId;
-
-    public String getMap_shoppingListName() {
-        return getString("map_shoppingListName");
-    }
-
-    public void setMap_shoppingListName(String map_shoppingListName) {
-        put("map_shoppingListName", map_shoppingListName);
-    }
-
     private String map_shoppingListName;
 
     public Map() {
 
     }
 
-    public Map(int map_userId, int map_superId, int map_shoppingListId) {
+    public Map(int map_userId, int map_superId, int map_shoppingListId,String map_superName,String map_shoppingListName) {
         setMapId(mapId++);
         setMap_userId(map_userId);
         setMap_superId(map_superId);
         setMap_shoppingListId(map_shoppingListId);
+        setMap_superName(map_superName);
+        setMap_shoppingListName(map_shoppingListName);
     }
 
     public int getMapId() {
@@ -76,6 +69,14 @@ public class Map extends ParseObject {
 
     public void setMap_superName(String map_superName) {
         put("map_superName",map_superName);
+    }
+
+    public String getMap_shoppingListName() {
+        return getString("map_shoppingListName");
+    }
+
+    public void setMap_shoppingListName(String map_shoppingListName) {
+        put("map_shoppingListName", map_shoppingListName);
     }
 
     public static List<Map> getMapsByUserId() {

@@ -5,6 +5,7 @@ package com.example.androidb.superquick.activities;
 //import android.support.v7.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
@@ -14,10 +15,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidb.superquick.General.UserSessionData;
 import com.example.androidb.superquick.R;
+import com.example.androidb.superquick.adapters.ShoppingListMenuAdapter;
 import com.example.androidb.superquick.dialogs.CitiesFragmentDialog;
 import com.example.androidb.superquick.entities.Map;
 import com.example.androidb.superquick.entities.ShoppingList;
@@ -35,6 +38,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.ArrayList;
+
 public class ShoppingListProcessActivity extends AppCompatActivity {
 
     ImageView mapsIcon;
@@ -43,6 +48,7 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
     ImageView cartIcon;
     Boolean isMapsFragment;
     private Menu menu;
+    static boolean loaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +93,19 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        UserSessionData.getInstance().mapShoopingListId = 0;
-
         if (getFragmentManager().getBackStackEntryCount() == 0) {
             this.finish();
         } else {
             //   String tag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
             getFragmentManager().popBackStack();
         }
+        if(UserSessionData.getInstance().mapShoopingListId == 0){
+        Intent i = new Intent(this, ShoppingListContentActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);}
+        else{
+            UserSessionData.getInstance().mapShoopingListId = 0;}
+
 //        UserSessionData.createAlertDialog(R.string.deleteNewShoppingListAlertDialogMsg,
 //                R.string.deleteAlertDialogTitle, this);
 
@@ -115,7 +126,7 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
         cartIcon = findViewById(R.id.cartIcon);
 
         if (destFragment instanceof ShoppingCategoriesFragment) {
-            cartIcon.setImageResource(R.drawable.map);
+            cartIcon.setImageResource(R.drawable.cart);
             superIcon.setImageResource(R.drawable.super_grey);
             shekelIcon.setImageResource(R.drawable.shekel_grey);
             mapsIcon.setImageResource(R.drawable.map_grey);
@@ -130,13 +141,25 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
             shekelIcon.setImageResource(R.drawable.shekel);
             mapsIcon.setImageResource(R.drawable.map_grey);
         } else if (destFragment instanceof SuperMapFragment) {
-            cartIcon.setImageResource(R.drawable.cart_grey);
-            superIcon.setImageResource(R.drawable.super_grey);
-            shekelIcon.setImageResource(R.drawable.shekel_grey);
-            mapsIcon.setImageResource(R.drawable.map);
-            isMapsFragment = true;
+              isMapsFragment = true;
             if (UserSessionData.getInstance().mapShoopingListId == 0) {
+                cartIcon.setImageResource(R.drawable.cart_grey);
+                superIcon.setImageResource(R.drawable.super_grey);
+                shekelIcon.setImageResource(R.drawable.shekel_grey);
+                mapsIcon.setImageResource(R.drawable.map);
                 updateMenuTitles();
+            }
+            else{
+                cartIcon.setVisibility(View.INVISIBLE);
+                superIcon.setVisibility(View.INVISIBLE);
+                shekelIcon.setVisibility(View.INVISIBLE);
+                mapsIcon.setVisibility(View.INVISIBLE);
+                TextView makav1=findViewById(R.id.makav1);
+                TextView makav2=findViewById(R.id.makav2);
+                TextView makav3=findViewById(R.id.makav3);
+                makav1.setVisibility(View.INVISIBLE);
+                makav2.setVisibility(View.INVISIBLE);
+                makav3.setVisibility(View.INVISIBLE);
             }
         }
         // First get FragmentManager object.
@@ -175,11 +198,9 @@ public class ShoppingListProcessActivity extends AppCompatActivity {
             case R.id.save_map:
                 Toast.makeText(this, R.string.saved_map, Toast.LENGTH_SHORT).show();
                 int shoppingListId;
-                if (UserSessionData.getInstance().userCurrentShoppingListId == 0)
-                    shoppingListId = UserSessionData.getInstance().userShoppingList.getShoppingListId();
-                else
-                    shoppingListId = UserSessionData.getInstance().userCurrentShoppingListId;
-                Map map = new Map(UserSessionData.getInstance().user.getUserId(), UserSessionData.getInstance().chosenSuperId, shoppingListId);
+                ShoppingList shoppingList;
+                shoppingList=ShoppingList.getShoppingListByListId();
+                Map map = new Map(UserSessionData.getInstance().user.getUserId(), UserSessionData.getInstance().chosenSuper.getSuperId(), shoppingList.getShoppingListId(),UserSessionData.getInstance().chosenSuper.getSuperName(),shoppingList.getShoppingListName());
                 map.saveInBackground();
 
                 return true;

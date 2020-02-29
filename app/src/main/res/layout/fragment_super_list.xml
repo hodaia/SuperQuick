@@ -7,46 +7,48 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ListView
+        android:layout_marginTop="50dp"
         android:id="@+id/supersListView"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:listSelector="@drawable/list_color"></ListView>
-
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/goToMapsBtn"
-        android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:text="@string/goToMaps"
-        style="@style/btnTextDesign"
-        android:background="@drawable/btn_color"
-        />
-</RelativeLayout>
     <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
-    <Button
-        android:id="@+id/price"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/abc"
-        android:text="price"
-        style="@style/btnTextDesign"
-        android:background="@drawable/btn_color"
-        />
-    <Button
-        android:id="@+id/abc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="abc"
-        style="@style/btnTextDesign"
-        android:background="@drawable/btn_color"
-        />
-</LinearLayout>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/price"
+            style="@style/btnTextDesign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/abc"
+            android:background="@drawable/btn_color"
+            android:text="price" />
+
+        <Button
+            android:id="@+id/abc"
+            style="@style/btnTextDesign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_color"
+            android:text="abc" />
+    </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+        <Button
+            android:id="@+id/goToMapsBtn"
+            style="@style/btnTextDesign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_color"
+            android:text="@string/goToMaps" />
+    </RelativeLayout>
+
+
 </FrameLayout>

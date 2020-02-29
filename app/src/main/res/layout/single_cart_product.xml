@@ -3,9 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
     android:orientation="horizontal"
     android:weightSum="10"
+    android:layout_marginTop="13dp"
+    android:layout_marginBottom="13dp"
     >
 <LinearLayout
     android:layout_width="wrap_content"
@@ -17,6 +19,7 @@
         android:text="productFinalPrice"
         android:paddingRight="10dp"
         android:paddingLeft="5dp"
+
         />
 
 
@@ -33,11 +36,16 @@
     <TextView
         android:id="@+id/cartProductName"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:text="productName"
         android:layout_alignParentRight="true"
+
         />
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
 </RelativeLayout>

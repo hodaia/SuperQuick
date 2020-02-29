@@ -66,7 +66,7 @@ public class CartListAdapter extends BaseAdapter {
 
         TextView cartProductFinalPrice = (TextView) convertView.findViewById(R.id.cartProductFinalPrice);
         finalPrice=((productsAmount.get(position).getProductInShoppingListAmount())*(productPrice.get(position).getProductInSuperPrice()));
-        cartProductFinalPrice.setText(String.valueOf(finalPrice)+"שח");
+        cartProductFinalPrice.setText(String.valueOf(finalPrice)+"₪");
 
         return convertView;
     }

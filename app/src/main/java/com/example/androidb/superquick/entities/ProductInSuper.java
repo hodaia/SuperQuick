@@ -123,7 +123,7 @@ public class ProductInSuper extends ParseObject {
         }
 
         ParseQuery<ProductInSuper> productInSuperQuery = ParseQuery.getQuery("ProductInSuper");
-        productInSuperQuery.whereEqualTo("productInSuper_superId", UserSessionData.getInstance().chosenSuperId);
+        productInSuperQuery.whereEqualTo("productInSuper_superId", UserSessionData.getInstance().chosenSuper.getSuperId());
         productInSuperQuery.whereMatchesKeyInQuery("productInSuper_productId", "productInShoppingList_productId", productInShoppingListQuery);
         productInSuperQuery.orderByDescending("productInSuper_productId");
 

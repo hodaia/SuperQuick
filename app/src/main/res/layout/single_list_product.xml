@@ -26,5 +26,6 @@
         android:scaleType="centerCrop"
         android:text="product"
         android:layout_alignParentRight="true"
+        android:textSize="20dp"
         />
 </RelativeLayout>

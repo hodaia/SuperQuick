@@ -77,7 +77,8 @@ public class SuperListAdapter extends BaseAdapter {
         if (UserSessionData.getTotalPrice(position) == 0) {
             UserSessionData.setTotalPrice(position, (int) totalPrice);
         }
-        totalPriceTextView.setText(String.valueOf(UserSessionData.getTotalPrice(position)));
+
+        totalPriceTextView.setText(String.valueOf(UserSessionData.getTotalPrice(position)+"₪"));
 
         //}else{
         // totalPriceTextView.setText(String.valueOf(supers.get(position).getTotalPrice()));
@@ -86,14 +87,18 @@ public class SuperListAdapter extends BaseAdapter {
         singleSuper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserSessionData.ChosenSuper(supers.get(position).getSuperId());
+                UserSessionData.ChosenSuper(supers.get(position));
                 FragmentManager ft = ((AppCompatActivity) context).getSupportFragmentManager();
                 CartDialogFragment cartDialogFragment = new CartDialogFragment();
                 cartDialogFragment.show(ft, "i");
 
             }
         });
-
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSessionData.ChosenSuper(supers.get(position));}}
+             );
         return convertView;
     }
 

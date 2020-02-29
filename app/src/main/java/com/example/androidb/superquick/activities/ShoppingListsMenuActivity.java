@@ -23,6 +23,8 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 public class ShoppingListsMenuActivity extends AppCompatActivity {
 
     FloatingActionButton addShoppingListBtn;
@@ -36,8 +38,6 @@ public class ShoppingListsMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_lists_menu);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         addShoppingListBtn = (FloatingActionButton) findViewById(R.id.addShoppingListBtn);
         addShoppingListBtn.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +73,6 @@ public class ShoppingListsMenuActivity extends AppCompatActivity {
             loaded = true;
         } else {
             //Log.i("Resuming", "back to my first activity");
-
             //Reload data
             parsedShoppingList=new ArrayList<>();
             parsedShoppingList = ShoppingList.getShoppingListByUserId();
@@ -81,6 +80,10 @@ public class ShoppingListsMenuActivity extends AppCompatActivity {
             shoppingListMenuView.setAdapter(shoppingListMenuAdapter);
 
         }
+    }
+    public void refresh(){
+        this.finish();
+        this.startActivity(getIntent());
     }
 
 }

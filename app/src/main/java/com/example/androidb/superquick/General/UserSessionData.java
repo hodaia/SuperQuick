@@ -5,13 +5,16 @@ import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.androidb.superquick.entities.Product;
 import com.example.androidb.superquick.entities.ProductInShoppingList;
 import com.example.androidb.superquick.entities.ShoppingList;
+import com.example.androidb.superquick.entities.SubCategory;
 import com.example.androidb.superquick.entities.Super;
 import com.example.androidb.superquick.entities.Users;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,15 +23,16 @@ public class UserSessionData {
     private static UserSessionData userSessionData=null;
     public Users user;
     public List<ProductInShoppingList> userShoppingListContent;
-    private List<ProductInShoppingList> productInShoppingLists;
+    public List<ProductInShoppingList> productInShoppingLists;
     public ShoppingList userShoppingList;
     public  boolean erase=false;
     // not asking the city and showing relevant supers
     public int userCityId;
     public int userCurrentShoppingListId;
 
+    HashMap<Integer, HashMap<SubCategory,List<Product>>> ParsedAllProducts=null;
     //for
-    public int chosenSuperId;
+    public Super chosenSuper;
 
     //for saved maps
     public int mapShoopingListId;
@@ -76,14 +80,15 @@ public class UserSessionData {
         userSessionData = new UserSessionData();
         userSessionData.user = user;
         userSessionData.userCityId=user.getUser_cityId();
+        userSessionData.productInShoppingLists= new ArrayList<>();
     }
 
     public static void emptyNewShoppingList() {
        userSessionData.userShoppingListContent=null;
     }
 
-    public static void ChosenSuper(int superId) {
-        userSessionData.chosenSuperId=superId;
+    public static void ChosenSuper(Super chosenSuper) {
+        userSessionData.chosenSuper=chosenSuper;
     }
     public static void createAlertDialog(int message, int title, FragmentActivity getActivity) {
         // Create the object of
@@ -132,7 +137,7 @@ public class UserSessionData {
 
 
     }
-    public static void createAlertDialog(String message,int  title, String topic, FragmentActivity getActivity) {
+    public static boolean createAlertDialog(String message, int  title, String topic, final FragmentActivity getActivity) {
         // Create the object of
         // AlertDialog Builder class
         AlertDialog.Builder builder
@@ -165,8 +170,11 @@ public class UserSessionData {
                                                 int which) {
                                 UserSessionData.eraseListOrMap();
                                 // When the user click yes button
-                                // then app will close
+                                // then app will close1;
                                 dialog.cancel();
+                                getActivity.finish();
+                                getActivity.startActivity(getActivity.getIntent());
+
 
                             }
                         });
@@ -191,6 +199,8 @@ public class UserSessionData {
 
         // Show the Alert Dialog box
         alertDialog.show();
+
+        return getErase();
     }
 
     public List<ProductInShoppingList> getProductInShoppingLists() {
@@ -199,5 +209,14 @@ public class UserSessionData {
 
     public void setProductInShoppingLists(List<ProductInShoppingList> productInShoppingLists) {
         this.productInShoppingLists = productInShoppingLists;
+    }
+
+    public void setAllProductsByCategory(HashMap<Integer, HashMap<SubCategory,List<Product>>> ParsedAllProducts) {
+        userSessionData.ParsedAllProducts=new HashMap<>();
+        userSessionData.ParsedAllProducts=ParsedAllProducts;
+    }
+
+    public HashMap<Integer, HashMap<SubCategory,List<Product>>> getAllProductsByCategory() {
+         return userSessionData.ParsedAllProducts;
     }
 }

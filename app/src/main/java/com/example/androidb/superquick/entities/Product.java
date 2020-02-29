@@ -87,13 +87,12 @@ public class Product extends ParseObject {
 
         //if the previous activity was shoppingListContent
         //which means there is a need to load a dinamic ShoppingListProcessActivity
-        if (UserSessionData.getInstance().userShoppingList == null) {
-            ParseQuery<ProductInShoppingList> queryProductInShoppingList = ParseQuery.getQuery("ProductInShoppingList");
-            queryProductInShoppingList.whereEqualTo("productInShoppingList_shoppingListId", UserSessionData.getInstance().userCurrentShoppingListId);
-            queryProducts.whereMatchesKeyInQuery("productId","productInShoppingList_shoppingListId", queryProductInShoppingList);
-            queryProducts.selectKeys(Arrays.asList("productInShoppingListAmount"));
-        }
-
+//        if (UserSessionData.getInstance().userShoppingList == null) {
+//            ParseQuery<ProductInShoppingList> queryProductInShoppingList = ParseQuery.getQuery("ProductInShoppingList");
+//            queryProductInShoppingList.whereEqualTo("productInShoppingList_shoppingListId", UserSessionData.getInstance().userCurrentShoppingListId);
+//            queryProducts.whereMatchesKeyInQuery("productId","productInShoppingList_shoppingListId", queryProductInShoppingList);
+//            queryProducts.selectKeys(Arrays.asList("productInShoppingListAmount"));
+//        }
 
         try {
             ParsedProducts = queryProducts.find();
@@ -112,7 +111,6 @@ public class Product extends ParseObject {
                   integerListHashMap.put(s,products);
                   products=new ArrayList<>();
         }
-
         return  integerListHashMap;
     }
 

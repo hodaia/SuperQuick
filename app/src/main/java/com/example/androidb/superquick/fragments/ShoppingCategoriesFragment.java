@@ -109,80 +109,83 @@ public class ShoppingCategoriesFragment extends Fragment {
         saveShoppingListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (UserSessionData.getInstance().userShoppingListContent.size() > 0) {
+                Intent intent = new Intent();
+                int shoppingListId = 0;
 
-                    Intent intent = new Intent();
-                    if (UserSessionData.getInstance().userCurrentShoppingListId == 0){
+                if (UserSessionData.getInstance().userShoppingListContent.size() > 0) {
+                    if (UserSessionData.getInstance().userCurrentShoppingListId != 0) {
+                        List<ProductInShoppingList> productInShoppingLists=UserSessionData.getInstance().getProductInShoppingLists();
+                        for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
+                            p.saveInBackground();
+                            productInShoppingLists.add(p);
+                            shoppingListId = p.getProductInShoppingList_shoppingListId();
+                        }
+                    } else {
                         UserSessionData.getInstance().userShoppingList.saveInBackground();
                         for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
                             p.saveInBackground();
+                            //??
                         }
+                        shoppingListId = UserSessionData.getInstance().userShoppingList.getShoppingListId();
                     }
+
                     // else  shopping list update and add
-                    intent.setClass(getActivity(),ShoppingListContentActivity.class);
+                    intent.setClass(getActivity(), ShoppingListContentActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                } else {
-                    UserSessionData.createAlertDialog(R.string.emptyListAlertDialogMsg,R.string.emptyListAlertDialogTitle,getActivity());
+
+                    UserSessionData.emptyNewShoppingList();
+                    UserSessionData.getInstance().userShoppingList = null;
+                    UserSessionData.getInstance().userCurrentShoppingListId = shoppingListId;
+                    UserSessionData.getInstance().productInShoppingLists=new ArrayList<>();
+                } else if(UserSessionData.getInstance().userCurrentShoppingListId!=0){
+                    intent.setClass(getActivity(), ShoppingListContentActivity.class);
+                     startActivity(intent);
                 }
+                else
+                    UserSessionData.createAlertDialog(R.string.emptyListAlertDialogMsg, R.string.emptyListAlertDialogTitle, getActivity());
             }
         });
+
 
         Button goToSupersListBtn = (Button) fragmentView.findViewById(R.id.goToSupersListBtn);
         goToSupersListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (UserSessionData.getInstance().userShoppingListContent.size() > 0||UserSessionData.getInstance().userCurrentShoppingListId!=0) {
+                if (UserSessionData.getInstance().userShoppingListContent.size() > 0) {
 
-                    if(UserSessionData.getInstance().userShoppingListContent.size() > 0){
-                    UserSessionData.getInstance().userShoppingList.saveInBackground();
-                    for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
-                        p.saveInBackground();
-                    }}
-                    else{
-
+                    if (UserSessionData.getInstance().userCurrentShoppingListId != 0) {
+                        List<ProductInShoppingList> productInShoppingLists = UserSessionData.getInstance().getProductInShoppingLists();
+                        for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
+                            p.saveInBackground();
+                        }
+                    } else {
+                        UserSessionData.getInstance().userShoppingList.saveInBackground();
+                        for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
+                            p.saveInBackground();
+                        }
                     }
-                    if(UserSessionData.getInstance().user.isPermanentCity())
-                    {
-                        UserSessionData.getInstance().userCityId=UserSessionData.getInstance().user.getUser_cityId();
+
+                    UserSessionData.emptyNewShoppingList();
+                    UserSessionData.getInstance().userShoppingList = null;
+                    UserSessionData.getInstance().userCurrentShoppingListId = 0;
+
+                    if (UserSessionData.getInstance().user.isPermanentCity()) {
+                        UserSessionData.getInstance().userCityId = UserSessionData.getInstance().user.getUser_cityId();
                         SuperListFragment superListFragment = new SuperListFragment();
                         ((ShoppingListProcessActivity) getActivity()).replaceFragment(superListFragment);
-                    }
-                    else {
+                    } else {
                         FragmentManager ft = (getActivity()).getSupportFragmentManager();
                         CitiesFragmentDialog citiesFragmentDialog = new CitiesFragmentDialog();
                         citiesFragmentDialog.show(ft, "i");
                     }
+                } else {
+                    UserSessionData.createAlertDialog(R.string.emptyListAlertDialogMsg, R.string.emptyListAlertDialogTitle, getActivity());
 
                 }
-                else {
-                    UserSessionData.createAlertDialog(R.string.emptyListAlertDialogMsg,R.string.emptyListAlertDialogTitle,getActivity());
 
-                }
             }
         });
-
-        //else{
-        //UserSessionData.emptyNewShoppingList();
-        //UserSessionData.getInstance().userShoppingList=null;}
-                /*hoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
-                ((ShoppingListProcessActivity) getActivity()).replaceFragment(shoppingCartFragment);*/
-        /*Button goToCartBtn = (Button) fragmentView.findViewById(R.id.goToCartBtn);
-        goToCartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (UserSessionData.getInstance().userShoppingListContent.size() != 0) {
-                    UserSessionData.getInstance().userShoppingList.saveInBackground();
-                    for (ProductInShoppingList p : UserSessionData.getInstance().userShoppingListContent) {
-                        p.saveInBackground();
-                    }
-                }
-                //else{
-                //UserSessionData.emptyNewShoppingList();
-                //UserSessionData.getInstance().userShoppingList=null;}
-                ShoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
-                ((ShoppingListProcessActivity) getActivity()).replaceFragment(shoppingCartFragment);
-            }
-        });*/
 
         //call  the function
         ParsedCategories = Category.getCategories();
@@ -193,7 +196,6 @@ public class ShoppingCategoriesFragment extends Fragment {
         shoppingCategoriesGridView.setAdapter(shoppingCategoriesAdapter);
         return fragmentView;
     }
-
 
 
 }
