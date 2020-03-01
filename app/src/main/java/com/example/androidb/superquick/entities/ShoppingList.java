@@ -101,4 +101,16 @@ public class ShoppingList extends ParseObject {
         }
         return parsedShoppingList;
     }
+    public static ShoppingList getShoppingListByListId(int shoppingListId) {
+        ShoppingList parsedShoppingList = new ShoppingList();
+        ParseQuery<ShoppingList> queryShoppingLists = ParseQuery.getQuery("ShoppingList");
+        queryShoppingLists.whereEqualTo("shoppingListId", shoppingListId);
+        try {
+            parsedShoppingList = queryShoppingLists.getFirst();
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        return parsedShoppingList;
+    }
 }

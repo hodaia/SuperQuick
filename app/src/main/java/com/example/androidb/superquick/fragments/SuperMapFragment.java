@@ -189,7 +189,9 @@ public class SuperMapFragment extends Fragment {
                         UserSessionData.getInstance().userShoppingList.getShoppingListDate().getMonth()) + "/" +
                         UserSessionData.getInstance().userShoppingList.getShoppingListDate().getYear();
             } else {
-                shoppingListName = String.valueOf(UserSessionData.getInstance().mapShoopingListId);
+                ShoppingList sh_l;
+                sh_l = ShoppingList.getShoppingListByListId(UserSessionData.getInstance().mapShoopingListId);
+                shoppingListName = String.valueOf(sh_l.getShoppingListName());
             }
         } else {
             ShoppingList sh_l;
@@ -204,6 +206,7 @@ public class SuperMapFragment extends Fragment {
         header.setMinimumHeight(View.AUTOFILL_TYPE_LIST);
         shoppingListNameTextView = header.findViewById(R.id.shoppingListNameTextView);
         shoppingListNameTextView.setText(shoppingListName);
+
 
         shoppingListDateTextView = header.findViewById(R.id.shoppingListDateTextView);
         shoppingListDateTextView.setText(shoppingListDate);

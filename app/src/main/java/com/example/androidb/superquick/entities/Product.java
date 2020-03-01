@@ -21,7 +21,7 @@ public class Product extends ParseObject {
     private String productName;
     private String productDescription;
     private SubCategory product_subCategoryCode;
-
+    private int subCategoryId;
 
     public Product() {
     }
@@ -58,6 +58,14 @@ public class Product extends ParseObject {
         put("productDescription", productDescription);
     }
 
+    public int getSubCategoryId() {
+        return getInt("subCategoryId");
+    }
+
+    public void setSubCategoryId(int subCategoryId) {
+        put("subCategoryId", subCategoryId);
+    }
+
     public int getProduct_subCategoryCode() {
         ParseRelation<SubCategory> relation = getRelation("product_subCategoryCode");
         int id;
@@ -82,33 +90,33 @@ public class Product extends ParseObject {
     public static HashMap<SubCategory,List<Product>> getProductsBySubCategory(List<SubCategory> parsedSubCategories) {
         List<Product> ParsedProducts = null;
 
-        ParseQuery<Product> queryProducts = ParseQuery.getQuery("Product");
-        queryProducts.whereContainedIn("product_subCategoryCode", parsedSubCategories);
+        //ParseQuery<Product> queryProducts = ParseQuery.getQuery("Product");
+        //queryProducts.whereContainedIn("subCategoryId", parsedSubCategories);
 
-        //if the previous activity was shoppingListContent
-        //which means there is a need to load a dinamic ShoppingListProcessActivity
-//        if (UserSessionData.getInstance().userShoppingList == null) {
-//            ParseQuery<ProductInShoppingList> queryProductInShoppingList = ParseQuery.getQuery("ProductInShoppingList");
-//            queryProductInShoppingList.whereEqualTo("productInShoppingList_shoppingListId", UserSessionData.getInstance().userCurrentShoppingListId);
-//            queryProducts.whereMatchesKeyInQuery("productId","productInShoppingList_shoppingListId", queryProductInShoppingList);
-//            queryProducts.selectKeys(Arrays.asList("productInShoppingListAmount"));
+//        try {
+//            ParsedProducts = queryProducts.find();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
 //        }
-
-        try {
-            ParsedProducts = queryProducts.find();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         HashMap<SubCategory,List<Product>> integerListHashMap= new HashMap<>();
         List<Product>products=new ArrayList<>();
         for (SubCategory s:parsedSubCategories)
               {
-                  for(Product p:ParsedProducts) {
-                      int x=p.getProduct_subCategoryCode();
-                      if(p.getProduct_subCategoryCode()==s.getSubCategoryId())
-                          products.add(p);
-                  }
-                  integerListHashMap.put(s,products);
+                 // for(Product p:ParsedProducts) {
+                      //int x=p.getProduct_subCategoryCode();
+                      ParseQuery<Product> queryProducts = ParseQuery.getQuery("Product");
+                      queryProducts.whereEqualTo("subCategoryId", s.getSubCategoryId());
+
+                      try {
+                          ParsedProducts = queryProducts.find();
+                      } catch (ParseException e) {
+                          e.printStackTrace();
+                      }
+
+                      //if(p.getProduct_subCategoryCode()==s.getSubCategoryId())
+                      //    products.add(p);
+                  //}
+                  integerListHashMap.put(s,ParsedProducts);
                   products=new ArrayList<>();
         }
         return  integerListHashMap;

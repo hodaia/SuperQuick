@@ -149,11 +149,19 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        /////if(UserSessionData.getInstance().getAllProductsByCategory()==null){
-        /////ParsedAllProducts=Category.getAllProductsByCategory();
-        /*UserSessionData.getInstance().setAllProductsByCategory(ParsedAllProducts); }
-        ParsedSubCategories=SubCategory.getSubCategory(categoryId);
-        ParsedProducts=Product.getProductsBySubCategory(ParsedSubCategories);*/
+//        Runnable r = new Runnable() {
+//            public void run() {
+//
+//
+//                if (UserSessionData.getInstance().getAllProductsByCategory() == null) {
+//                    ParsedAllProducts = Category.getAllProductsByCategory();
+//                    UserSessionData.getInstance().setAllProductsByCategory(ParsedAllProducts);
+//                }
+//            }
+//        };
+
+        //ParsedSubCategories=SubCategory.getSubCategory(categoryId);
+        //ParsedProducts=Product.getProductsBySubCategory(ParsedSubCategories);*/
     }
 
 
